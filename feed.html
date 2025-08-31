@@ -302,57 +302,6 @@
       <a href="#"><span class="material-symbols-rounded">settings</span></a>
     </div>
   </footer>
-
-  <script>
-    
-    function addPost() {
-      const text = document.getElementById("postText").value;
-      const imageInput = document.getElementById("postImage");
-      const feed = document.getElementById("feed");
-      
-      if (text.trim() === "" && !imageInput.files[0]) return;
-      
-      const post = document.createElement("div");
-      post.classList.add("post");
-      
-      // Header do post (usuário)
-      const postHeader = document.createElement("div");
-      postHeader.classList.add("post-header");
-      
-      const avatar = document.createElement("img");
-      avatar.src = currentUser.avatar;
-      avatar.classList.add("post-avatar");
-      avatar.alt = "Avatar do usuário";
-      
-      const userInfo = document.createElement("div");
-      userInfo.classList.add("user-info");
-      userInfo.innerHTML = `<strong>${currentUser.name}</strong> <span>${currentUser.username}</span>`;
-      
-      postHeader.appendChild(avatar);
-      postHeader.appendChild(userInfo);
-      post.appendChild(postHeader);
-      
-      // Conteúdo do post
-      if (text.trim() !== "") {
-        const p = document.createElement("p");
-        p.textContent = text;
-        post.appendChild(p);
-      }
-      
-      if (imageInput.files[0]) {
-        const img = document.createElement("img");
-        img.src = URL.createObjectURL(imageInput.files[0]);
-        img.classList.add("post-img");
-        img.alt = "Imagem do post";
-        post.appendChild(img);
-      }
-      
-      feed.prepend(post);
-      
-      document.getElementById("postText").value = "";
-      imageInput.value = "";
-    }
-  </script>
   
 <script>
 const feed = document.getElementById("feed");
@@ -507,24 +456,3 @@ background: #f2f2f2;
 
 </body>
 </html>
-<script>
-// Pega usuário logado
-let currentUser = JSON.parse(localStorage.getItem("userData"));
-if(!currentUser){
-  alert("Faça login primeiro!");
-  window.location.href = "login.html";
-}
-
-// Pega usuário do perfil que está sendo visualizado
-let profileUser = JSON.parse(localStorage.getItem("profileUser")) || currentUser;
-
-// Ajusta o sidebar My Account
-const sidebar = document.querySelector(".myacc");
-if (profileUser.username === currentUser.username) {
-  sidebar.innerHTML = `<span class="material-symbols-rounded">account_circle</span> Editar Perfil`;
-  sidebar.onclick = () => window.location.href = "config.html";
-} else {
-  sidebar.innerHTML = `<span class="material-symbols-rounded">mail</span> Mandar DM`;
-  sidebar.onclick = () => window.location.href = `dm.html?to=${profileUser.username}`;
-}
-</script>
