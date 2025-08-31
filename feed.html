@@ -360,53 +360,77 @@
     }
   </script>
   
-  <script>
-    function addPost() {
-  const text = document.getElementById("postText").value;
-  const imageInput = document.getElementById("postImage");
-  const feed = document.getElementById("feed");
+<script>
+const feed = document.getElementById("feed");
+const postText = document.getElementById("postText");
+const postImage = document.getElementById("postImage");
+
+// Pega usuário logado
+let currentUser = JSON.parse(localStorage.getItem("userData"));
+if(!currentUser){
+  alert("Faça login primeiro!");
+  window.location.href = "login.html";
+}
+
+// Carrega posts salvos
+let posts = JSON.parse(localStorage.getItem("posts")) || [];
+posts.forEach(p => renderPost(p));
+
+// Função de postar
+function addPost(){
+  const text = postText.value.trim();
+  const file = postImage.files[0] ? URL.createObjectURL(postImage.files[0]) : null;
+  if(!text && !file) return;
   
-  if (text.trim() === "" && !imageInput.files[0]) return;
+  const newPost = {
+    user: currentUser,
+    text: text,
+    image: file,
+    timestamp: Date.now()
+  };
   
+  posts.unshift(newPost);
+  localStorage.setItem("posts", JSON.stringify(posts));
+  
+  renderPost(newPost, true);
+  
+  postText.value = "";
+  postImage.value = "";
+}
+
+// Função que cria o post no DOM
+function renderPost(postData, prepend=false){
   const post = document.createElement("div");
   post.classList.add("post");
   
-  // Header do post
   const postHeader = document.createElement("div");
   postHeader.classList.add("post-header");
-  
   const avatar = document.createElement("img");
-  avatar.src = currentUser.avatar;
+  avatar.src = postData.user.avatar;
   avatar.classList.add("post-avatar");
-  avatar.alt = "Avatar do usuário";
-  
   const userInfo = document.createElement("div");
   userInfo.classList.add("user-info");
-  userInfo.innerHTML = `<strong>${currentUser.name}</strong> <span>${currentUser.username}</span>`;
-  
+  userInfo.innerHTML = `<strong>${postData.user.name}</strong> <span>${postData.user.username}</span>`;
   postHeader.appendChild(avatar);
   postHeader.appendChild(userInfo);
+  
   post.appendChild(postHeader);
   
-  // Conteúdo do post
-  if (text.trim() !== "") {
+  if(postData.text) {
     const p = document.createElement("p");
-    p.textContent = text;
+    p.textContent = postData.text;
     post.appendChild(p);
   }
   
-  if (imageInput.files[0]) {
+  if(postData.image){
     const img = document.createElement("img");
-    img.src = URL.createObjectURL(imageInput.files[0]);
+    img.src = postData.image;
     img.classList.add("post-img");
-    img.alt = "Imagem do post";
     post.appendChild(img);
   }
   
-  // Área de interações (curtida, comentário, destaque + menu)
   const postFooter = document.createElement("div");
   postFooter.classList.add("post-footer");
-  
   postFooter.innerHTML = `
     <div class="post-actions">
       <span class="material-symbols-rounded" title="Curtir">favorite</span>
@@ -415,10 +439,9 @@
     </div>
     <div class="post-more">more_vert</div>
   `;
-  
   const moreBtn = postFooter.querySelector(".post-more");
   moreBtn.onclick = () => {
-    if (postFooter.querySelector(".more-menu")) {
+    if(postFooter.querySelector(".more-menu")){
       postFooter.querySelector(".more-menu").remove();
       return;
     }
@@ -433,15 +456,12 @@
     `;
     postFooter.appendChild(menu);
   };
-  
   post.appendChild(postFooter);
-  feed.prepend(post);
   
-  document.getElementById("postText").value = "";
-  imageInput.value = "";
+  if(prepend) feed.prepend(post);
+  else feed.appendChild(post);
 }
-  </script>
-  
+</script>
   <style>.post-footer {
 display: flex;
 justify-content: space-between;
