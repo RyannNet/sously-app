@@ -72,3 +72,18 @@
   </script>
 </body>
 </html>
+<script>
+const btnCadastrar = document.querySelector(".log-in");
+
+btnCadastrar.addEventListener("click", () => {
+  // ... seu código atual ...
+  
+  // DEBUG: Verificar antes de salvar
+  console.log("Antes de salvar - Contas existentes:", JSON.parse(localStorage.getItem("contas")) || []);
+  
+  // ... resto do seu código ...
+  
+  // DEBUG: Verificar depois de salvar
+  console.log("Depois de salvar - Contas atualizadas:", JSON.parse(localStorage.getItem("contas")));
+});
+</script>
