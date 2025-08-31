@@ -113,18 +113,36 @@ btnCadastrar.addEventListener("click", () => {
     return;
   }
   
-  // Salva os dados no localStorage
-  const userData = {
+  // Pega as contas existentes ou cria array vazio
+  const contas = JSON.parse(localStorage.getItem("contas")) || [];
+  
+  // Verifica se email já existe
+  if (contas.some(conta => conta.email === email)) {
+    alert("Este e-mail já está cadastrado!");
+    return;
+  }
+  
+  // Cria novo usuário
+  const newUser = {
     name: nome,
     email: email,
+    senha: senha, // IMPORTANTE: salvar a senha também
     username: "@" + nome.toLowerCase().replace(/\s+/g, ""),
     avatar: "/sously/2017 Sem Título_20250830113613.png"
   };
-  localStorage.setItem("userData", JSON.stringify(userData));
   
-  // Confere se a página feed.html existe
-  window.location.href = "feed.html"; // Se estiver na mesma pasta
+  // Adiciona novo usuário ao array de contas
+  contas.push(newUser);
+  
+  // Salva o array atualizado no localStorage
+  localStorage.setItem("contas", JSON.stringify(contas));
+  
+  // Também salva como usuário atual
+  localStorage.setItem("userData", JSON.stringify(newUser));
+  
+  // Redireciona para o feed
+  window.location.href = "feed.html";
 });
-  </script>
+</script>
 </body>
 </html>
