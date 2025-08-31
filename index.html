@@ -47,3 +47,28 @@
 </body>
 
 </html>
+
+<script>
+  document.querySelector(".log-in").addEventListener("click", () => {
+    const email = document.querySelector(".e-mail").value.trim();
+    const senha = document.querySelector(".password").value.trim();
+
+    if (!email || !senha) {
+      alert("Preencha os dois campos!");
+      return;
+    }
+
+    // pega contas salvas
+    const contas = JSON.parse(localStorage.getItem("contas")) || [];
+
+    // procura conta q bate email + senha
+    const conta = contas.find(c => c.email === email && c.senha === senha);
+
+    if (conta) {
+      localStorage.setItem("logado", JSON.stringify(conta));
+      window.location.href = "/feed.html"; // redireciona
+    } else {
+      alert("E-mail ou senha inválidos");
+    }
+  });
+</script>
