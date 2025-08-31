@@ -204,6 +204,7 @@
       border-radius: 15px;
       padding: 15px;
       width: 100%;
+      position: relative;
     }
     
     .post-header {
@@ -260,6 +261,134 @@
         padding-bottom: 60px; /* Ajuste para o footer menor em mobile */
       }
     }
+
+    /* Floating Button para Moderadores */
+    .mod-floating-btn {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FFCB28, #FF9000);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .mod-floating-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .mod-panel {
+      position: fixed;
+      bottom: 150px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      padding: 20px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .mod-panel h3 {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 18px;
+      text-align: center;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #FFCB28;
+    }
+    
+    .mod-option {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+      gap: 10px;
+    }
+    
+    .mod-option:hover {
+      background: #FFF5E0;
+    }
+    
+    .mod-option span {
+      color: #FF9000;
+    }
+    
+    .mod-option p {
+      margin: 0;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .user-screen-blackout {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: white;
+      z-index: 2000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .blackout-content {
+      max-width: 500px;
+    }
+    
+    .blackout-content h2 {
+      margin-bottom: 20px;
+      color: #FFCB28;
+    }
+    
+    .blackout-content p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .blackout-btn {
+      background: #FFCB28;
+      color: #000;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+    
+    .blackout-btn:hover {
+      background: #000;
+      color: #FFCB28;
+      border: 1px solid #FFCB28;
+    }
+    
+    .rules-link {
+      color: #FFCB28;
+      text-decoration: underline;
+      margin-top: 15px;
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
@@ -303,16 +432,92 @@
     </div>
   </footer>
   
+  <!-- Floating Button para Moderadores (só aparece para admins) -->
+  <div class="mod-floating-btn" id="modButton">
+    <span class="material-symbols-rounded">admin_panel_settings</span>
+  </div>
+  
+  <!-- Painel de Moderação -->
+  <div class="mod-panel" id="modPanel">
+    <h3>Ferramentas de Moderação</h3>
+    <div class="mod-option" onclick="modAction('warn')">
+      <span class="material-symbols-rounded">warning</span>
+      <p>Warn (Advertir)</p>
+    </div>
+    <div class="mod-option" onclick="modAction('mute')">
+      <span class="material-symbols-rounded">volume_off</span>
+      <p>Mutar</p>
+    </div>
+    <div class="mod-option" onclick="modAction('ban')">
+      <span class="material-symbols-rounded">block</span>
+      <p>Banir</p>
+    </div>
+    <div class="mod-option" onclick="modAction('banIp')">
+      <span class="material-symbols-rounded">network_locked</span>
+      <p>Banir por IP</p>
+    </div>
+    <div class="mod-option" onclick="modAction('deleteContent')">
+      <span class="material-symbols-rounded">delete</span>
+      <p>Excluir conteúdo</p>
+    </div>
+    <div class="mod-option" onclick="modAction('blackout')">
+      <span class="material-symbols-rounded">visibility_off</span>
+      <p>Esconder usuário</p>
+    </div>
+    <div class="mod-option" onclick="modAction('limit')">
+      <span class="material-symbols-rounded">lock</span>
+      <p>Limitar atividades</p>
+    </div>
+  </div>
+  
+  <!-- Tela de castigo (preto) -->
+  <div class="user-screen-blackout" id="blackoutScreen">
+    <div class="blackout-content">
+      <h2>Você Foi Escondido</h2>
+      <p>Ninguém pode ver seus posts nem sua conta enquanto o moderador não retirar esta restrição.</p>
+      <p>Quer saber quando o administrador poderá remover seu castigo?</p>
+      <button class="blackout-btn" onclick="remindMe()">Sim, me lembrar</button>
+      <a href="#" class="rules-link">Ver regras da rede social</a>
+    </div>
+  </div>
+  
 <script>
 const feed = document.getElementById("feed");
 const postText = document.getElementById("postText");
 const postImage = document.getElementById("postImage");
+const modButton = document.getElementById("modButton");
+const modPanel = document.getElementById("modPanel");
+const blackoutScreen = document.getElementById("blackoutScreen");
 
 // Pega usuário logado
 let currentUser = JSON.parse(localStorage.getItem("userData"));
 if(!currentUser){
   alert("Faça login primeiro!");
   window.location.href = "login.html";
+}
+
+// Verifica se é moderador (willianbotcontact@gmail.com é moderador)
+const isModerator = currentUser.email === "willianbotcontact@gmail.com";
+
+// Mostra o botão de moderação apenas para moderadores
+if (isModerator) {
+  modButton.style.display = "flex";
+  
+  // Alterna o painel de moderação
+  modButton.addEventListener("click", function() {
+    if (modPanel.style.display === "flex") {
+      modPanel.style.display = "none";
+    } else {
+      modPanel.style.display = "flex";
+    }
+  });
+  
+  // Fecha o painel se clicar fora dele
+  document.addEventListener('click', function(event) {
+    if (!modPanel.contains(event.target) && !modButton.contains(event.target)) {
+      modPanel.style.display = 'none';
+    }
+  });
 }
 
 // Carrega posts salvos
@@ -426,6 +631,52 @@ function renderPost(postData, prepend=false){
   if(prepend) feed.prepend(post);
   else feed.appendChild(post);
 }
+
+// Ações de moderação
+function modAction(action) {
+  modPanel.style.display = "none";
+  
+  switch(action) {
+    case 'warn':
+      alert('Usuário advertido com sucesso!');
+      break;
+    case 'mute':
+      alert('Usuário mutado por 24 horas!');
+      break;
+    case 'ban':
+      if (confirm('Tem certeza que deseja banir este usuário permanentemente?')) {
+        alert('Usuário banido com sucesso!');
+      }
+      break;
+    case 'banIp':
+      if (confirm('Tem certeza que deseja banir este IP permanentemente?')) {
+        alert('IP banido com sucesso!');
+      }
+      break;
+    case 'deleteContent':
+      alert('Conteúdo excluído com sucesso!');
+      break;
+    case 'blackout':
+      blackoutScreen.style.display = 'flex';
+      break;
+    case 'limit':
+      alert('Atividades do usuário limitadas com sucesso!');
+      break;
+  }
+}
+
+// Lembrar sobre castigo
+function remindMe() {
+  alert('Lembrete ativado! Você receberá uma notificação quando o administrador revisar seu caso.');
+  blackoutScreen.style.display = 'none';
+}
+
+// Fechar tela preta com ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    blackoutScreen.style.display = 'none';
+  }
+});
 </script>
   <style>.post-footer {
 display: flex;
@@ -475,12 +726,12 @@ transition: 0.2s;
 background: #f2f2f2;
 }</style>
 
-
-</body>
-</html>
 <script>
 // Redirecionamento do menu My Account
 document.querySelector(".myacc").addEventListener("click", function() {
   window.location.href = "config.html";
 });
 </script>
+
+</body>
+</html>
