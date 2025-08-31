@@ -65,8 +65,9 @@
     const conta = contas.find(c => c.email === email && c.senha === senha);
 
     if (conta) {
-      localStorage.setItem("logado", JSON.stringify(conta));
-      window.location.href = "/feed.html"; // redireciona
+  localStorage.setItem("userData", JSON.stringify(conta)); // <--- aqui
+  window.location.href = "/feed.html";
+}
     } else {
       alert("E-mail ou senha inválidos");
     }
