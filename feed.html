@@ -306,8 +306,21 @@
 <script>
 const feed = document.getElementById("feed");
 const postText = document.getElementById("postText");
-const postImage = document.getElementById("postImage");
-
+let file = null;
+if(postImage.files[0]){
+  const reader = new FileReader();
+  reader.onload = () => {
+    file = reader.result;
+    const newPost = { user: currentUser, text: postText.value.trim(), image: file, timestamp: Date.now() };
+    posts.unshift(newPost);
+    localStorage.setItem("posts", JSON.stringify(posts));
+    renderPost(newPost, true);
+    postText.value = "";
+    postImage.value = "";
+  };
+  reader.readAsDataURL(postImage.files[0]);
+  return;
+}
 // Pega usuário logado
 let currentUser = JSON.parse(localStorage.getItem("userData"));
 if(!currentUser){
