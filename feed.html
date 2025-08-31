@@ -514,23 +514,23 @@ background: #f2f2f2;
 </body>
 </html>
 <script>
-const sidebar = document.querySelector(".myacc");
-
-// pega o usuário logado
-const currentUser = JSON.parse(localStorage.getItem("userData"));
-
-// pega o dono do perfil que você tá vendo
-const profileUser = JSON.parse(localStorage.getItem("profileUser"));
-
-// se o dono do perfil for o user logado → mostra "Editar Perfil"
-// senão → mostra "Mandar DM"
-if (profileUser && currentUser) {
-  if (profileUser.username === currentUser.username) {
-    sidebar.innerHTML = `<span class="material-symbols-rounded">account_circle</span> Editar Perfil`;
-    sidebar.onclick = () => window.location.href = "config.html";
-  } else {
-    sidebar.innerHTML = `<span class="material-symbols-rounded">mail</span> Mandar DM`;
-    sidebar.onclick = () => window.location.href = `dm.html?to=${profileUser.username}`;
-  }
+let currentUser = JSON.parse(localStorage.getItem("userData"));
+if(!currentUser){
+  alert("Faça login primeiro!");
+  window.location.href = "login.html";
 }
+
+let profileUser = JSON.parse(localStorage.getItem("profileUser")) || currentUser;
   </script>
+
+<script>
+  const sidebar = document.querySelector(".myacc");
+
+if (profileUser.username === currentUser.username) {
+  sidebar.innerHTML = `<span class="material-symbols-rounded">account_circle</span> Editar Perfil`;
+  sidebar.onclick = () => window.location.href = "config.html";
+} else {
+  sidebar.innerHTML = `<span class="material-symbols-rounded">mail</span> Mandar DM`;
+  sidebar.onclick = () => window.location.href = `dm.html?to=${profileUser.username}`;
+}
+</script>
