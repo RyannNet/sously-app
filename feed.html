@@ -306,21 +306,8 @@
 <script>
 const feed = document.getElementById("feed");
 const postText = document.getElementById("postText");
-let file = null;
-if(postImage.files[0]){
-  const reader = new FileReader();
-  reader.onload = () => {
-    file = reader.result;
-    const newPost = { user: currentUser, text: postText.value.trim(), image: file, timestamp: Date.now() };
-    posts.unshift(newPost);
-    localStorage.setItem("posts", JSON.stringify(posts));
-    renderPost(newPost, true);
-    postText.value = "";
-    postImage.value = "";
-  };
-  reader.readAsDataURL(postImage.files[0]);
-  return;
-}
+const postImage = document.getElementById("postImage");
+
 // Pega usuário logado
 let currentUser = JSON.parse(localStorage.getItem("userData"));
 if(!currentUser){
@@ -335,23 +322,45 @@ posts.forEach(p => renderPost(p));
 // Função de postar
 function addPost(){
   const text = postText.value.trim();
-  const file = postImage.files[0] ? URL.createObjectURL(postImage.files[0]) : null;
+  const file = postImage.files[0];
+  
   if(!text && !file) return;
   
-  const newPost = {
-    user: currentUser,
-    text: text,
-    image: file,
-    timestamp: Date.now()
-  };
-  
-  posts.unshift(newPost);
-  localStorage.setItem("posts", JSON.stringify(posts));
-  
-  renderPost(newPost, true);
-  
-  postText.value = "";
-  postImage.value = "";
+  if(file) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      const newPost = {
+        user: currentUser,
+        text: text,
+        image: reader.result,
+        timestamp: Date.now()
+      };
+      
+      posts.unshift(newPost);
+      localStorage.setItem("posts", JSON.stringify(posts));
+      
+      renderPost(newPost, true);
+      
+      postText.value = "";
+      postImage.value = "";
+    };
+    reader.readAsDataURL(file);
+  } else {
+    const newPost = {
+      user: currentUser,
+      text: text,
+      image: null,
+      timestamp: Date.now()
+    };
+    
+    posts.unshift(newPost);
+    localStorage.setItem("posts", JSON.stringify(posts));
+    
+    renderPost(newPost, true);
+    
+    postText.value = "";
+    postImage.value = "";
+  }
 }
 
 // Função que cria o post no DOM
