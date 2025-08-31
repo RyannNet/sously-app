@@ -1,0 +1,136 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background: #FFFFFF;
+  color: #1E1E1E;
+  font-family: "Rubik", sans-serif;
+}
+header{
+  width: 100%;
+  height: 60px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E1E1E1;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+.logo{
+  height: 40px;
+}
+footer{
+  width: 100%;
+  height: 65px;
+  font-size: 2rem;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #E8E8E8;
+  background: #fff;
+}
+.ic_footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  gap: 2.5rem;
+}
+.ic_footer a{
+  text-decoration: none;
+  color: #000;
+}
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded' !important;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+aside{
+  background: #FDFDFD;
+  border-right: 1px solid #E8E8E8;
+  height: calc(100vh - 60px);
+  width: 235px;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  padding: 15px 10px;
+}
+.side-bar{
+  display: grid;
+  gap: 8px;
+}
+.side-bar ul{
+  list-style: none;
+  height: 50px;
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  padding: 0 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #868686;
+  transition: 0.3s;
+}
+.side-bar ul:hover{
+  background: #E2E2E2;
+  color: #000;
+}
+.side-bar .logout{
+  color: #FF6E6E;
+}
+.contents-js{
+  margin-left: 235px;
+  padding: 20px;
+  min-height: calc(100vh - 125px);
+}
+/* Responsivo */
+@media (max-width: 768px){
+  aside{
+    display: none;
+  }
+  .contents-js{
+    margin-left: 0;
+  }
+  footer{
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #E8E8E8;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0; /* controla altura do footer */
+  font-size: 1.5rem; /* tamanho dos ícones */
+}
+
+.ic_footer{
+  display: flex;
+  gap: 2rem;
+}
+
+/* Mobile */
+@media (max-width: 768px){
+  footer{
+    font-size: 1.8rem; /* aumenta levemente no mobile se quiser */
+    padding: 12px 0;
+  }
+  .ic_footer{
+    gap: 1.5rem;
+  }
+
+  }
+  .ic_footer{
+    gap: 2rem;
+  }
+}

@@ -1,0 +1,109 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+  body{
+  font-family: Mozilla Text;
+  color: #000000;
+  padding-top: 25%;
+}
+.profile{
+  width:  8rem;
+  margin: 15px;
+  border: 2px solid #CCCCCC;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.account{
+  display: flex;
+  
+}
+
+.nickname{
+  justify-content: center;
+  margin-top: 25%;
+  font-size: 2rem;
+}
+header{
+  background: #F1F1F1A1;
+  backdrop-filter: blur(13px);
+  font-weight: 100;
+  border: 1px solid #DADADA;
+  top: 0;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  font-family: raleway;
+  width: 100%;
+  height: 65px;
+}
+
+.vulgon{
+  color: #FFB700;
+  margin-top: 4%;
+}
+.G{
+  background: #FFD920;
+  border: none;
+  border-radius: 35px;
+  width: 35%;
+  height: 50px;
+  align-items: center;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  font-family: Host Grotesk;
+  margin: 7px;
+  
+}
+.H {
+  background: #F0F0F0;
+  border: none;
+  border-radius: 35px;
+  width: 52%;
+  height: 50px;
+  align-items: center;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  font-family: Host Grotesk;
+  margin: 5px;
+  
+}
+
+.following{
+  margin-top: 4%;
+  color: #898989;
+}
+.btn-options{
+  display: flex;
+  justify-content: center;
+  margin-top: 6%;
+  
+}
+.bio{
+  color: #888888;
+  background: transparent;
+  border: 2px solid #9C9C9C00;
+  width: 85%;
+  border-style: dotted;
+  border-radius: 12px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 15px;
+}
+
+.vulgo{
+  color: #000000;
+  font-weight: 500;
+  display: flex;
+  margin-left: 15px;
+  font-size: 25px;
+  align-items: center;
+}
+
+hr{
+  outline-color: #B1B1B100;
+  border: 0.5px solid #B1B1B1;
+  margin-top: 2%;
+}
