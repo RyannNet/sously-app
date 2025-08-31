@@ -49,27 +49,29 @@
 </html>
 
 <script>
-  document.querySelector(".log-in").addEventListener("click", () => {
-    const email = document.querySelector(".e-mail").value.trim();
-    const senha = document.querySelector(".password").value.trim();
+document.querySelector(".log-in").addEventListener("click", () => {
+  const email = document.querySelector(".e-mail").value.trim();
+  const senha = document.querySelector(".password").value.trim();
 
-    if (!email || !senha) {
-      alert("Preencha os dois campos!");
-      return;
-    }
+  if (!email || !senha) {
+    alert("Preencha os dois campos!");
+    return;
+  }
 
-    // pega contas salvas
-    const contas = JSON.parse(localStorage.getItem("contas")) || [];
+  // pega contas salvas
+  const contas = JSON.parse(localStorage.getItem("contas")) || [];
 
-    // procura conta q bate email + senha
-    const conta = contas.find(c => c.email === email && c.senha === senha);
+  // procura conta que bate email + senha
+  const conta = contas.find(c => c.email === email && c.senha === senha);
 
-    if (conta) {
-  localStorage.setItem("userData", JSON.stringify(conta)); // <--- aqui
-  window.location.href = "/feed.html";
-}
-    } else {
-      alert("E-mail ou senha inválidos");
+  if (conta) {
+    localStorage.setItem("userData", JSON.stringify(conta));
+    window.location.href = "feed.html";
+  } else {
+    alert("E-mail ou senha inválidos");
+  }
+});
+</script>
     }
   });
 </script>
