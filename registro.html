@@ -94,37 +94,37 @@
   </footer>
   
   <script>
-  const btnCadastrar = document.querySelector(".log-in");
-  
-  btnCadastrar.addEventListener("click", () => {
-    const inputs = document.querySelectorAll(".input-container input");
-    const nome = inputs[0].value.trim();
-    const email = inputs[1].value.trim();
-    const senha = inputs[2].value.trim();
-    const confirm = inputs[3].value.trim();
-    
-    if (!nome || !email || !senha || !confirm) {
-      alert("Preencha todos os campos!");
-      return;
-    }
-    
-    if (senha !== confirm) {
-      alert("As senhas não coincidem!");
-      return;
-    }
-    
-    // Salva os dados no localStorage
-    localStorage.setItem("userData", JSON.stringify({
-      name: nome,
-      email: email,
-      username: "@" + nome.toLowerCase().replace(/\s+/g, ""),
-      avatar: "/sously/2017 Sem Título_20250830113613.png" // pode mudar depois pra upload
-    }));
-    
-    // Redireciona pro feed
-    window.location.href = "/sously/feed.html";
-  });
-</script>
+const btnCadastrar = document.querySelector(".log-in");
 
+btnCadastrar.addEventListener("click", () => {
+  const inputs = document.querySelectorAll(".input-container input");
+  const nome = inputs[0].value.trim();
+  const email = inputs[1].value.trim();
+  const senha = inputs[2].value.trim();
+  const confirm = inputs[3].value.trim();
+  
+  if (!nome || !email || !senha || !confirm) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+  
+  if (senha !== confirm) {
+    alert("As senhas não coincidem!");
+    return;
+  }
+  
+  // Salva os dados no localStorage
+  const userData = {
+    name: nome,
+    email: email,
+    username: "@" + nome.toLowerCase().replace(/\s+/g, ""),
+    avatar: "/sously/2017 Sem Título_20250830113613.png"
+  };
+  localStorage.setItem("userData", JSON.stringify(userData));
+  
+  // Confere se a página feed.html existe
+  window.location.href = "feed.html"; // Se estiver na mesma pasta
+});
+  </script>
 </body>
 </html>
