@@ -729,36 +729,53 @@
       }
     }
 
-// Função que cria o post no DOM
-function renderPost(post, prepend = false){
-  const postEl = document.createElement("div");
-  postEl.className = "post";
-
-  const time = new Date(post.timestamp).toLocaleString("pt-BR", {dateStyle:"short", timeStyle:"short"});
-
-  postEl.innerHTML = `
-    <div class="post-header">
-      <img src="${post.user.avatar || 'default-avatar.png'}" class="post-avatar" alt="Avatar">
-      <div class="user-info">
-        <strong>${post.user.name}</strong>
-        <span>@${post.user.username}</span>
-      </div>
-      <div class="post-time">${time}</div>
-    </div>
-    <div class="post-content">${post.text || ""}</div>
-    ${post.image ? `<img src="${post.image}" class="post-img">` : ""}
-    <div class="post-footer">
-      <div class="post-actions">
-        <button class="post-action"><span class="material-symbols-rounded">thumb_up</span>Curtir</button>
-        <button class="post-action"><span class="material-symbols-rounded">chat_bubble</span>Comentar</button>
-        <button class="post-action"><span class="material-symbols-rounded">share</span>Compartilhar</button>
-      </div>
-    </div>
-  `;
-
-  if(prepend){
-    feed.prepend(postEl);
-  } else {
-    feed.appendChild(postEl);
-  }
-}
+    // Função que cria o post no DOM
+    function renderPost(postData, prepend=false){
+      const post = document.createElement("div");
+      post.classList.add("post");
+      
+      const postHeader = document.createElement("div");
+      postHeader.classList.add("post-header");
+      
+      const avatar = document.createElement("img");
+      avatar.src = postData.user.avatar;
+      avatar.classList.add("post-avatar");
+      
+      const userInfo = document.createElement("div");
+      userInfo.classList.add("user-info");
+      userInfo.innerHTML = `
+        <strong>${postData.user.name}</strong>
+        <span>${postData.user.username}</span>
+      `;
+      
+      const postTime = document.createElement("div");
+      postTime.classList.add("post-time");
+      postTime.textContent = new Date(postData.timestamp).toLocaleDateString();
+      
+      postHeader.appendChild(avatar);
+      postHeader.appendChild(userInfo);
+      postHeader.appendChild(postTime);
+      
+      post.appendChild(postHeader);
+      
+      if(postData.text) {
+        const p = document.createElement("p");
+        p.classList.add("post-content");
+        p.textContent = postData.text;
+        post.appendChild(p);
+      }
+      
+      if(postData.image){
+        const img = document.createElement("img");
+        img.src = postData.image;
+        img.classList.add("post-img");
+        post.appendChild(img);
+      }
+      
+      const postFooter = document.createElement("div");
+      postFooter.classList.add("post-footer");
+      postFooter.innerHTML = `
+        <div class="post-actions">
+          <button class="post-action">
+            <span class="material-symbols-rounded">favorite</span>
+          
