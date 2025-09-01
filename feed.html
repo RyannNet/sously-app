@@ -686,3 +686,155 @@
   </script>
 </body>
 </html>
+
+<script>
+// SISTEMA DE POSTS PÚBLICOS - TODOS OS USUÁRIOS VÊEM OS MESMOS POSTS
+
+// Modificação na função addPost() - TROQUE ESTA FUNÇÃO
+function addPost(){
+  const text = postText.value.trim();
+  const file = postImage.files[0];
+  
+  if(!text && !file) return;
+  
+  if(file) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      const newPost = {
+        user: currentUser,
+        text: text,
+        image: reader.result,
+        timestamp: Date.now(),
+        // ID único para evitar duplicatas
+        id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+      };
+      
+      // SALVA NO localStorage PÚBLICO (todos os usuários acessam)
+      let publicPosts = JSON.parse(localStorage.getItem("public_posts")) || [];
+      publicPosts.unshift(newPost);
+      localStorage.setItem("public_posts", JSON.stringify(publicPosts));
+      
+      renderPost(newPost, true);
+      postText.value = "";
+      postImage.value = "";
+    };
+    reader.readAsDataURL(file);
+  } else {
+    const newPost = {
+      user: currentUser,
+      text: text,
+      image: null,
+      timestamp: Date.now(),
+      // ID único para evitar duplicatas
+      id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+    };
+    
+    // SALVA NO localStorage PÚBLICO (todos os usuários acessam)
+    let publicPosts = JSON.parse(localStorage.getItem("public_posts")) || [];
+    publicPosts.unshift(newPost);
+    localStorage.setItem("public_posts", JSON.stringify(publicPosts));
+    
+    renderPost(newPost, true);
+    postText.value = "";
+    postImage.value = "";
+  }
+}
+
+// Modificação no carregamento de posts - TROQUE ESTA LINHA
+// Substitua a linha: let posts = JSON.parse(localStorage.getItem("posts")) || [];
+// Por:
+let posts = JSON.parse(localStorage.getItem("public_posts")) || [];
+
+// Sistema de likes público - ADICIONE ESTAS FUNÇÕES
+function setupLikesSystem() {
+  // Inicializa sistema de likes se não existir
+  if (!localStorage.getItem("post_likes")) {
+    localStorage.setItem("post_likes", JSON.stringify({}));
+  }
+}
+
+function likePost(postId) {
+  const likes = JSON.parse(localStorage.getItem("post_likes")) || {};
+  if (!likes[postId]) {
+    likes[postId] = [];
+  }
+  
+  // Verifica se usuário já curtiu
+  const userIndex = likes[postId].indexOf(currentUser.email);
+  if (userIndex === -1) {
+    // Adiciona like
+    likes[postId].push(currentUser.email);
+  } else {
+    // Remove like
+    likes[postId].splice(userIndex, 1);
+  }
+  
+  localStorage.setItem("post_likes", JSON.stringify(likes));
+  updateLikeDisplay(postId);
+}
+
+function updateLikeDisplay(postId) {
+  const likes = JSON.parse(localStorage.getItem("post_likes")) || {};
+  const postLikes = likes[postId] || [];
+  const likeCount = postLikes.length;
+  const isLiked = postLikes.includes(currentUser.email);
+  
+  const likeElement = document.querySelector(`[data-post-id="${postId}"] .like-count`);
+  const likeIcon = document.querySelector(`[data-post-id="${postId}"] .like-icon`);
+  
+  if (likeElement) {
+    likeElement.textContent = likeCount;
+  }
+  
+  if (likeIcon) {
+    likeIcon.style.color = isLiked ? '#FF4757' : '#FFA900';
+  }
+}
+
+// Modificação no renderPost() - ATUALIZE A PARTE DO LIKE
+// No footer do post, substitua o HTML por:
+postFooter.innerHTML = `
+  <div class="post-actions">
+    <span class="material-symbols-rounded like-icon" onclick="likePost('${postData.id}')" 
+          data-post-id="${postData.id}" 
+          style="color: ${isPostLiked(postData.id) ? '#FF4757' : '#FFA900'}">favorite</span>
+    <span class="like-count" data-post-id="${postData.id}">${getLikeCount(postData.id)}</span>
+    
+    <span class="material-symbols-rounded" title="Comentários">chat_bubble</span>
+    <span class="material-symbols-rounded" title="Comentário de destaque">stars</span>
+  </div>
+  <div class="post-more">more_vert</div>
+`;
+
+// Funções auxiliares para likes - ADICIONE ESTAS
+function isPostLiked(postId) {
+  const likes = JSON.parse(localStorage.getItem("post_likes")) || {};
+  return likes[postId] ? likes[postId].includes(currentUser.email) : false;
+}
+
+function getLikeCount(postId) {
+  const likes = JSON.parse(localStorage.getItem("post_likes")) || {};
+  return likes[postId] ? likes[postId].length : 0;
+}
+
+// Inicializa o sistema de likes
+setupLikesSystem();
+
+// Atualiza os likes ao carregar a página
+posts.forEach(post => {
+  if (post.id) {
+    updateLikeDisplay(post.id);
+  }
+});
+
+// Sistema de comentários público - ADICIONE SE QUISER
+function setupCommentsSystem() {
+  if (!localStorage.getItem("post_comments")) {
+    localStorage.setItem("post_comments", JSON.stringify({}));
+  }
+}
+
+// Para tornar os posts realmente públicos entre dispositivos,
+// você precisaria de um backend real, mas esta solução faz
+// com que todos os usuários no mesmo navegador vejam os mesmos posts
+      </script>
