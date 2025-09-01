@@ -3,627 +3,464 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sously - Feed</title>
-
-  <!-- Material Symbols -->
+  <title>Feed</title>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300..900&family=Raleway:wght@400..900&display=swap" rel="stylesheet">
-
   <style>
-    :root {
-      --primary: #FFCB28;
-      --primary-dark: #FFA000;
-      --secondary: #1E1E1E;
-      --background: #FFFFFF;
-      --surface: #F8F9FA;
-      --border: #E1E1E1;
-      --text-primary: #1E1E1E;
-      --text-secondary: #666666;
-      --text-tertiary: #999999;
-      --danger: #FF4757;
-      --success: #2ED573;
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
-      --radius: 12px;
-      --radius-lg: 16px;
-      --transition: all 0.2s ease;
-    }
-
-    * {
+    *{
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
-    body {
-      background: var(--background);
-      color: var(--text-primary);
+    body{
+      background: #FFFFFF;
+      color: #1E1E1E;
       font-family: "Rubik", sans-serif;
-      line-height: 1.6;
-      padding-bottom: 80px;
+      padding-bottom: 65px;
     }
-
-    /* Header Moderno */
-    header {
+    header{
       width: 100%;
-      height: 70px;
-      background: var(--background);
-      border-bottom: 1px solid var(--border);
+      height: 60px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E1E1E1;
       display: flex;
       align-items: center;
-      padding: 0 24px;
+      padding: 0 10px;
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
     }
-
-    .logo {
-      height: 36px;
-      object-fit: contain;
+    .logo{
+      height: 40px;
     }
-
-    .header-search {
-      flex: 1;
-      max-width: 400px;
-      margin: 0 24px;
-      position: relative;
-    }
-
-    .header-search input {
+    footer{
       width: 100%;
-      padding: 12px 48px 12px 16px;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: var(--surface);
-      font-family: "Rubik", sans-serif;
-      font-size: 14px;
-      transition: var(--transition);
-    }
-
-    .header-search input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(255, 203, 40, 0.1);
-    }
-
-    .header-search span {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-tertiary);
-      cursor: pointer;
-    }
-
-    .header-actions {
+      height: 65px;
+      font-size: 2rem;
       display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .header-action-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--text-secondary);
-      transition: var(--transition);
-      padding: 8px;
-      border-radius: 50%;
-    }
-
-    .header-action-btn:hover {
-      background: var(--surface);
-      color: var(--primary);
-    }
-
-    /* Sidebar Moderno */
-    aside {
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      height: calc(100vh - 70px);
-      width: 280px;
       position: fixed;
-      top: 70px;
+      bottom: 0;
+      border-top: 1px solid #E8E8E8;
+      background: #fff;
+      z-index: 100;
+    }
+    .ic_footer{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      gap: 2.5rem;
+    }
+    .ic_footer a{
+      text-decoration: none;
+      color: #000;
+    }
+
+    .material-symbols-rounded {
+      font-family: 'Material Symbols Rounded';
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    aside{
+      background: #FDFDFD;
+      border-right: 1px solid #E8E8E8;
+      height: calc(100vh - 60px);
+      width: 235px;
+      position: fixed;
+      top: 60px;
       left: 0;
-      padding: 24px 16px;
+      padding: 15px 10px;
       overflow-y: auto;
     }
-
-    .side-bar {
+    .side-bar{
       display: grid;
       gap: 8px;
     }
-
-    .side-bar ul {
+    .side-bar ul{
       list-style: none;
-      height: 52px;
+      height: 50px;
       align-items: center;
       display: flex;
-      gap: 12px;
-      padding: 0 16px;
-      border-radius: var(--radius);
+      gap: 10px;
+      padding: 0 10px;
+      border-radius: 10px;
       cursor: pointer;
-      color: var(--text-secondary);
-      transition: var(--transition);
-      font-weight: 500;
+      color: #868686;
+      transition: 0.3s;
+    }
+    .side-bar ul:hover{
+      background: #E2E2E2;
+      color: #000;
+    }
+    .side-bar .logout{
+      color: #FF6E6E;
     }
 
-    .side-bar ul:hover {
-      background: rgba(255, 203, 40, 0.1);
-      color: var(--primary);
+    .contents-js{
+      margin-left: 235px;
+      padding: 20px;
+      min-height: calc(100vh - 125px);
+    }
+    
+    .post-box{
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .side-bar ul.active {
-      background: var(--primary);
-      color: var(--secondary);
-    }
-
-    .side-bar .logout {
-      color: var(--danger);
-      margin-top: 24px;
-    }
-
-    .side-bar .logout:hover {
-      background: rgba(255, 71, 87, 0.1);
-    }
-
-    /* Conteúdo Principal */
-    .contents-js {
-      margin-left: 280px;
-      padding: 32px;
-      min-height: calc(100vh - 70px);
-      background: var(--surface);
-    }
-
-    .feed-container {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    /* Área de Postagem Moderna */
-    .post-box {
-      background: var(--background);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border);
-    }
-
-    .post-box textarea {
+    .post-box textarea{
       width: 100%;
-      min-height: 100px;
-      border: 1px solid var(--border);
+      min-height: 80px;
+      border: 1px solid #E1E1E1;
       outline: none;
       resize: none;
       font-family: "Rubik", sans-serif;
-      font-size: 16px;
-      padding: 16px;
-      border-radius: var(--radius);
-      transition: var(--transition);
-      background: var(--surface);
-    }
-
-    .post-box textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(255, 203, 40, 0.1);
-    }
-
-    .post-box textarea::placeholder {
-      color: var(--text-tertiary);
-    }
-
-    .post-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .file-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      border: 2px dashed var(--primary);
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: var(--transition);
-      color: var(--primary);
-      font-weight: 600;
       font-size: 14px;
-      background: rgba(255, 203, 40, 0.05);
+      padding: 10px;
+      border-radius: 10px;
     }
 
-    .file-container:hover {
-      background: rgba(255, 203, 40, 0.1);
-      border-color: var(--primary-dark);
+    .post-box input[type="file"]{
+      display: none;
     }
 
-    .post-box button {
-      background: var(--primary);
-      color: var(--secondary);
-      border: none;
-      border-radius: var(--radius);
-      padding: 12px 32px;
-      font-size: 16px;
-      font-weight: 600;
+    .post-box .file-container{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 2px dashed #FFCB28;
+      border-radius: 15px;
+      padding: 15px;
       cursor: pointer;
-      transition: var(--transition);
-      margin-left: auto;
+      transition: 0.3s;
+      color: #FFCB28;
+      font-weight: bold;
+      font-size: 14px;
     }
 
-    .post-box button:hover {
-      background: var(--primary-dark);
+    .post-box .file-container:hover{
+      background: #FFF5E0;
+      border-color: #FFB700;
+      color: #FF9000;
+    }
+
+    .post-box .file-container span{
+      font-size: 24px;
+    }
+
+    .post-box button{
+      width: 100%;
+      background: #FFCB28;
+      color: #000;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 0;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .post-box button:hover{
+      background: #000;
+      color: #FFCB28;
       transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
     }
 
-    /* Feed de Posts */
-    #feed {
+    #feed{
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
-    .post {
-      background: var(--background);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border);
-      transition: var(--transition);
+    .post{
+      background: #fff;
+      border: 1px solid #E1E1E1;
+      border-radius: 15px;
+      padding: 15px;
+      width: 100%;
     }
-
-    .post:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
+    
     .post-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 10px;
+      margin-bottom: 10px;
     }
-
+    
     .post-avatar {
-      width: 48px;
-      height: 48px;
+      width: 40px;
+      border: 1px solid #9D9D9D2B;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid var(--primary);
     }
-
+    
     .user-info {
       display: flex;
       flex-direction: column;
     }
-
-    .user-info strong {
-      font-size: 16px;
-      color: var(--text-primary);
-    }
-
+    
     .user-info span {
-      font-size: 14px;
-      color: var(--primary);
+      font-size: 0.9rem;
+      color: #FFA900;
     }
 
-    .post-time {
-      font-size: 12px;
-      color: var(--text-tertiary);
-      margin-left: auto;
-    }
-
-    .post-content {
-      margin-bottom: 16px;
-      line-height: 1.6;
-      color: var(--text-primary);
-    }
-
-    .post-img {
+    .post-img{
       width: 100%;
       max-height: 400px;
       object-fit: cover;
-      border-radius: var(--radius);
-      margin-bottom: 16px;
+      border-radius: 10px;
+      margin-top: 10px;
     }
 
     .post-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
+      margin-top: 10px;
     }
 
-    .post-actions {
-      display: flex;
-      gap: 16px;
-    }
-
-    .post-action {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: none;
-      border: none;
+    .post-actions span {
       cursor: pointer;
-      color: var(--text-secondary);
-      transition: var(--transition);
-      padding: 8px;
-      border-radius: var(--radius);
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 22px;
+      color: #FFA900;
+      margin-right: 15px;
+      transition: 0.2s;
     }
 
-    .post-action:hover {
-      background: var(--surface);
-      color: var(--primary);
+    .post-actions span:hover {
+      color: #FF6E00;
     }
 
-    .post-action span {
-      font-size: 20px;
+    .post-more {
+      cursor: pointer;
+      font-size: 22px;
     }
 
-    /* Footer Moderno */
-    footer {
-      width: 100%;
-      height: 80px;
-      background: var(--background);
-      border-top: 1px solid var(--border);
+    .more-menu {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 5px;
+      top: 35px;
+      right: 10px;
       display: flex;
-      position: fixed;
-      bottom: 0;
-      z-index: 100;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      flex-direction: column;
+      gap: 5px;
+      z-index: 200;
     }
 
-    .ic_footer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      gap: 32px;
+    .more-menu div {
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: 0.2s;
     }
 
-    .ic_footer a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      text-decoration: none;
-      color: var(--text-secondary);
-      transition: var(--transition);
-      position: relative;
+    .more-menu div:hover {
+      background: #f2f2f2;
     }
 
-    .ic_footer a:hover {
-      background: var(--surface);
-      color: var(--primary);
-      transform: translateY(-4px);
+    @media (max-width: 768px){
+      aside{
+        display: none;
+      }
+      .contents-js{
+        margin-left: 0;
+        padding: 10px;
+      }
+      footer{
+        font-size: 1.8rem;
+        height: 60px;
+      }
+      .ic_footer{
+        gap: 2rem;
+      }
+      body {
+        padding-bottom: 60px;
+      }
     }
 
-    .ic_footer a.active {
-      color: var(--primary);
-      background: rgba(255, 203, 40, 0.1);
-    }
-
-    .ic_footer a span {
-      font-size: 24px;
-    }
-
-    /* Floating Button para Moderadores */
+    /* BOTÃO DE MODERAÇÃO */
     .mod-floating-btn {
       position: fixed;
-      bottom: 100px;
-      right: 24px;
+      bottom: 80px;
+      right: 20px;
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--secondary);
-      display: flex;
+      background: linear-gradient(135deg, #FFCB28, #FF9000);
+      color: white;
+      display: none;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       z-index: 1000;
-      transition: var(--transition);
-    }
-
-    .mod-floating-btn:hover {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 8px 24px rgba(255, 203, 40, 0.3);
     }
 
     .mod-panel {
       position: fixed;
-      bottom: 176px;
-      right: 24px;
-      width: 320px;
-      background: var(--background);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-md);
+      bottom: 150px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
       z-index: 1000;
       padding: 20px;
       display: none;
       flex-direction: column;
-      gap: 8px;
-      border: 1px solid var(--border);
+      gap: 10px;
     }
 
     .mod-panel h3 {
-      margin: 0 0 16px 0;
-      color: var(--text-primary);
+      margin: 0 0 15px 0;
+      color: #333;
       font-size: 18px;
       text-align: center;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--primary);
+      padding-bottom: 10px;
+      border-bottom: 2px solid #FFCB28;
     }
 
     .mod-option {
       display: flex;
       align-items: center;
-      padding: 12px 16px;
-      border-radius: var(--radius);
+      padding: 12px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: var(--transition);
-      gap: 12px;
+      transition: background 0.2s;
+      gap: 10px;
     }
 
     .mod-option:hover {
-      background: rgba(255, 203, 40, 0.1);
-      transform: translateX(4px);
+      background: #FFF5E0;
     }
 
     .mod-option span {
-      color: var(--primary);
-      font-size: 20px;
+      color: #FF9000;
     }
 
     .mod-option p {
       margin: 0;
       font-weight: 500;
-      color: var(--text-primary);
-      font-size: 14px;
+      color: #333;
     }
 
-    /* Responsivo */
-    @media (max-width: 1024px) {
-      aside {
-        width: 240px;
-      }
-      .contents-js {
-        margin-left: 240px;
-        padding: 24px;
-      }
+    /* MODAL DE MODERAÇÃO */
+    .mod-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
     }
 
-    @media (max-width: 768px) {
-      aside {
-        display: none;
-      }
-      .contents-js {
-        margin-left: 0;
-        padding: 16px;
-      }
-      .header-search {
-        display: none;
-      }
-      .feed-container {
-        max-width: 100%;
-      }
-      .post-box {
-        padding: 20px;
-      }
-      footer {
-        height: 70px;
-      }
-      .ic_footer {
-        gap: 24px;
-      }
-      .ic_footer a {
-        width: 48px;
-        height: 48px;
-      }
+    .mod-modal-content {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .user-selection {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid #E1E1E1;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .user-selection:hover {
+      background: #F8F9FA;
+    }
+
+    .user-selection img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
   <header>
-    <img class="logo" src="2018 Sem Título_20250830122829.png" alt="Sously">
-    
-    <div class="header-search">
-      <input type="text" placeholder="Pesquisar no Sously...">
-      <span class="material-symbols-rounded">search</span>
-    </div>
-    
-    <div class="header-actions">
-      <button class="header-action-btn">
-        <span class="material-symbols-rounded">notifications</span>
-      </button>
-      <button class="header-action-btn">
-        <span class="material-symbols-rounded">mail</span>
-      </button>
-    </div>
+    <img class="logo" src="/sously/2018 Sem Título_20250830122829.png" alt="logo">
   </header>
 
   <aside>
     <div class="side-bar">
-      <ul class="active"><span class="material-symbols-rounded">home</span>Início</ul>
-      <ul><span class="material-symbols-rounded">explore</span>Explorar</ul>
-      <ul><span class="material-symbols-rounded">notifications</span>Notificações</ul>
-      <ul><span class="material-symbols-rounded">mail</span>Mensagens</ul>
-      <ul class="myacc"><span class="material-symbols-rounded">account_circle</span>Meu Perfil</ul>
-      <ul class="myrep"><span class="material-symbols-rounded">flag</span>Minhas Denúncias</ul>
-      <ul class="support"><span class="material-symbols-rounded">support</span>Suporte</ul>
-      <ul class="terms-link"><span class="material-symbols-rounded">description</span>Termos</ul>
-      <ul class="privacy"><span class="material-symbols-rounded">lock</span>Privacidade</ul>
-      <ul class="logout"><span class="material-symbols-rounded">logout</span>Sair</ul>
+      <ul class="myacc"><span class="material-symbols-rounded">account_circle</span>My Account</ul>
+      <ul class="support"><span class="material-symbols-rounded">support</span>Support</ul>
+      <ul class="terms-link"><span class="material-symbols-rounded">contract_edit</span>Terms</ul>
+      <ul class="privacy"><span class="material-symbols-rounded">lock</span>Privacy</ul>
+      <ul class="myrep"><span class="material-symbols-rounded">group_off</span>Minhas denúncias</ul>
+      <ul class="logout"><span class="material-symbols-rounded">logout</span>Logout</ul>
     </div>
   </aside>
 
   <div class="contents-js">
-    <div class="feed-container">
-      <!-- Área de Criação de Post -->
-      <div class="post-box">
-        <textarea id="postText" placeholder="O que você está pensando?"></textarea>
-        
-        <div class="post-actions">
-          <label class="file-container" for="postImage">
-            <span class="material-symbols-rounded">image</span> Foto
-          </label>
-          <input type="file" id="postImage" accept="image/*">
-          
-          <button onclick="addPost()">Publicar</button>
-        </div>
-      </div>
-
-      <!-- Feed de Posts -->
-      <div id="feed"></div>
+    <div class="post-box">
+      <textarea id="postText" placeholder="O que você está pensando?"></textarea>
+      
+      <label class="file-container" for="postImage">
+        <span class="material-symbols-rounded">image</span> Adicionar Foto
+      </label>
+      <input type="file" id="postImage" accept="image/*">
+      
+      <button onclick="addPost()">Postar</button>
     </div>
+    <div id="feed"></div>
   </div>
 
   <footer>
     <div class="ic_footer">
-      <a href="#" class="active"><span class="material-symbols-rounded">home</span></a>
+      <a href="#"><span class="material-symbols-rounded">home</span></a>
       <a href="#"><span class="material-symbols-rounded">search</span></a>
+      <a href="#"><span class="material-symbols-rounded">group</span></a>
       <a href="#"><span class="material-symbols-rounded">add</span></a>
-      <a href="#"><span class="material-symbols-rounded">notifications</span></a>
-      <a href="#"><span class="material-symbols-rounded">account_circle</span></a>
+      <a href="#"><span class="material-symbols-rounded">settings</span></a>
     </div>
   </footer>
   
-  <!-- Floating Button para Moderadores -->
+  <!-- BOTÃO DE MODERAÇÃO -->
   <div class="mod-floating-btn" id="modButton">
     <span class="material-symbols-rounded">admin_panel_settings</span>
   </div>
   
-  <!-- Painel de Moderação -->
+  <!-- PAINEL DE MODERAÇÃO -->
   <div class="mod-panel" id="modPanel">
     <h3>Ferramentas de Moderação</h3>
     <div class="mod-option" onclick="modAction('warn')">
       <span class="material-symbols-rounded">warning</span>
-      <p>Advertir Usuário</p>
+      <p>Warn (Advertir)</p>
     </div>
     <div class="mod-option" onclick="modAction('mute')">
       <span class="material-symbols-rounded">volume_off</span>
-      <p>Mutar Temporariamente</p>
+      <p>Mutar</p>
     </div>
     <div class="mod-option" onclick="modAction('ban')">
       <span class="material-symbols-rounded">block</span>
-      <p>Banir Permanentemente</p>
+      <p>Banir</p>
     </div>
     <div class="mod-option" onclick="modAction('banIp')">
       <span class="material-symbols-rounded">network_locked</span>
@@ -631,26 +468,38 @@
     </div>
     <div class="mod-option" onclick="modAction('deleteContent')">
       <span class="material-symbols-rounded">delete</span>
-      <p>Excluir Conteúdo</p>
+      <p>Excluir conteúdo</p>
     </div>
     <div class="mod-option" onclick="modAction('blackout')">
       <span class="material-symbols-rounded">visibility_off</span>
-      <p>Esconder Usuário</p>
+      <p>Esconder usuário</p>
     </div>
     <div class="mod-option" onclick="modAction('limit')">
       <span class="material-symbols-rounded">lock</span>
-      <p>Limitar Atividades</p>
+      <p>Limitar atividades</p>
+    </div>
+  </div>
+
+  <!-- MODAL DE SELEÇÃO -->
+  <div class="mod-modal" id="modModal">
+    <div class="mod-modal-content">
+      <h3 id="modModalTitle">Selecionar Usuário</h3>
+      <div id="modModalContent">
+        <!-- Conteúdo dinâmico aqui -->
+      </div>
     </div>
   </div>
 
   <script>
-    // Seu código JavaScript permanece aqui (as mesmas funções)
-    // Apenas atualizei o design, a funcionalidade é a mesma
+    // CÓDIGO ORIGINAL COMPLETO
     const feed = document.getElementById("feed");
     const postText = document.getElementById("postText");
     const postImage = document.getElementById("postImage");
     const modButton = document.getElementById("modButton");
     const modPanel = document.getElementById("modPanel");
+    const modModal = document.getElementById("modModal");
+    const modModalTitle = document.getElementById("modModalTitle");
+    const modModalContent = document.getElementById("modModalContent");
 
     // Pega usuário logado
     let currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -661,17 +510,11 @@
 
     // Verifica se é moderador
     const isModerator = currentUser.email === "willianbotcontact@gmail.com";
-
-    // Mostra o botão de moderação apenas para moderadores
     if (isModerator) {
       modButton.style.display = "flex";
       
       modButton.addEventListener("click", function() {
-        if (modPanel.style.display === "flex") {
-          modPanel.style.display = "none";
-        } else {
-          modPanel.style.display = "flex";
-        }
+        modPanel.style.display = modPanel.style.display === "flex" ? "none" : "flex";
       });
       
       document.addEventListener('click', function(event) {
@@ -704,9 +547,7 @@
           
           posts.unshift(newPost);
           localStorage.setItem("posts", JSON.stringify(posts));
-          
           renderPost(newPost, true);
-          
           postText.value = "";
           postImage.value = "";
         };
@@ -721,9 +562,7 @@
         
         posts.unshift(newPost);
         localStorage.setItem("posts", JSON.stringify(posts));
-        
         renderPost(newPost, true);
-        
         postText.value = "";
         postImage.value = "";
       }
@@ -736,31 +575,19 @@
       
       const postHeader = document.createElement("div");
       postHeader.classList.add("post-header");
-      
       const avatar = document.createElement("img");
       avatar.src = postData.user.avatar;
       avatar.classList.add("post-avatar");
-      
       const userInfo = document.createElement("div");
       userInfo.classList.add("user-info");
-      userInfo.innerHTML = `
-        <strong>${postData.user.name}</strong>
-        <span>${postData.user.username}</span>
-      `;
-      
-      const postTime = document.createElement("div");
-      postTime.classList.add("post-time");
-      postTime.textContent = new Date(postData.timestamp).toLocaleDateString();
-      
+      userInfo.innerHTML = `<strong>${postData.user.name}</strong> <span>${postData.user.username}</span>`;
       postHeader.appendChild(avatar);
       postHeader.appendChild(userInfo);
-      postHeader.appendChild(postTime);
       
       post.appendChild(postHeader);
       
       if(postData.text) {
         const p = document.createElement("p");
-        p.classList.add("post-content");
         p.textContent = postData.text;
         post.appendChild(p);
       }
@@ -776,6 +603,86 @@
       postFooter.classList.add("post-footer");
       postFooter.innerHTML = `
         <div class="post-actions">
-          <button class="post-action">
-            <span class="material-symbols-rounded">favorite</span>
-          
+          <span class="material-symbols-rounded" title="Curtir">favorite</span>
+          <span class="material-symbols-rounded" title="Comentários">chat_bubble</span>
+          <span class="material-symbols-rounded" title="Comentário de destaque">stars</span>
+        </div>
+        <div class="post-more">more_vert</div>
+      `;
+      
+      const moreBtn = postFooter.querySelector(".post-more");
+      moreBtn.onclick = () => {
+        const existingMenu = postFooter.querySelector(".more-menu");
+        if(existingMenu) {
+          existingMenu.remove();
+          return;
+        }
+        
+        const menu = document.createElement("div");
+        menu.classList.add("more-menu");
+        menu.innerHTML = `
+          <div>Denunciar</div>
+          <div>Esconder</div>
+          <div>Bloquear dono do post</div>
+          <div>Ir para conta do dono</div>
+          <div>Enviar DM</div>
+        `;
+        postFooter.appendChild(menu);
+      };
+      
+      post.appendChild(postFooter);
+      
+      if(prepend) feed.prepend(post);
+      else feed.appendChild(post);
+    }
+
+    // SISTEMA DE MODERAÇÃO
+    let currentAction = '';
+    
+    function modAction(action) {
+      currentAction = action;
+      modPanel.style.display = "none";
+      
+      const contas = JSON.parse(localStorage.getItem("contas")) || [];
+      
+      modModalTitle.textContent = `Selecionar Usuário para ${action}`;
+      modModalContent.innerHTML = '';
+      
+      contas.forEach(user => {
+        const userEl = document.createElement('div');
+        userEl.className = 'user-selection';
+        userEl.innerHTML = `
+          <img src="${user.avatar}" alt="${user.name}">
+          <div>
+            <strong>${user.name}</strong><br>
+            <span>${user.email}</span>
+          </div>
+        `;
+        userEl.onclick = () => confirmModAction(user);
+        modModalContent.appendChild(userEl);
+      });
+      
+      modModal.style.display = 'flex';
+    }
+    
+    function confirmModAction(user) {
+      modModal.style.display = 'none';
+      alert(`${currentAction} aplicado para ${user.name}`);
+      
+      // Aqui você implementaria a lógica real de moderação
+    }
+
+    // Redirecionamento do menu
+    document.querySelector(".myacc").addEventListener("click", function() {
+      window.location.href = "config.html";
+    });
+
+    // Fechar modal ao clicar fora
+    modModal.addEventListener('click', (e) => {
+      if (e.target === modModal) {
+        modModal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
