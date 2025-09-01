@@ -647,6 +647,218 @@ function renderPost(postData, prepend=false){
 // SISTEMA DE MODERAÇÃO
 let currentAction = '';
 
+<script>
+// CÓDIGO COMPLETO E FUNCIONAL
+const feed = document.getElementById("feed");
+const postText = document.getElementById("postText");
+const postImage = document.getElementById("postImage");
+const modButton = document.getElementById("modButton");
+const modPanel = document.getElementById("modPanel");
+const modModal = document.getElementById("modModal");
+const modModalTitle = document.getElementById("modModalTitle");
+const modModalContent = document.getElementById("modModalContent");
+
+// Pega usuário logado
+let currentUser = JSON.parse(localStorage.getItem("userData"));
+if(!currentUser){
+  alert("Faça login primeiro!");
+  window.location.href = "login.html";
+}
+
+// Verifica se é moderador
+const isModerator = currentUser.email === "willianbotcontact@gmail.com";
+if (isModerator) {
+  modButton.style.display = "flex";
+  
+  modButton.addEventListener("click", function() {
+    modPanel.style.display = modPanel.style.display === "flex" ? "none" : "flex";
+  });
+  
+  document.addEventListener('click', function(event) {
+    if (!modPanel.contains(event.target) && !modButton.contains(event.target)) {
+      modPanel.style.display = 'none';
+    }
+  });
+}
+
+// Carrega posts salvos - AGORA USANDO POSTS PÚBLICOS
+let posts = JSON.parse(localStorage.getItem("public_posts")) || [];
+posts.forEach(p => renderPost(p));
+
+// Função de postar - AGORA SALVA EM POSTS PÚBLICOS
+function addPost(){
+  const text = postText.value.trim();
+  const file = postImage.files[0];
+  
+  if(!text && !file) return;
+  
+  if(file) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      const newPost = {
+        user: currentUser,
+        text: text,
+        image: reader.result,
+        timestamp: Date.now(),
+        id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+      };
+      
+      // SALVA NO localStorage PÚBLICO
+      let publicPosts = JSON.parse(localStorage.getItem("public_posts")) || [];
+      publicPosts.unshift(newPost);
+      localStorage.setItem("public_posts", JSON.stringify(publicPosts));
+      
+      renderPost(newPost, true);
+      postText.value = "";
+      postImage.value = "";
+    };
+    reader.readAsDataURL(file);
+  } else {
+    const newPost = {
+      user: currentUser,
+      text: text,
+      image: null,
+      timestamp: Date.now(),
+      id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+    };
+    
+    // SALVA NO localStorage PÚBLICO
+    let publicPosts = JSON.parse(localStorage.getItem("public_posts")) || [];
+    publicPosts.unshift(newPost);
+    localStorage.setItem("public_posts", JSON.stringify(publicPosts));
+    
+    renderPost(newPost, true);
+    postText.value = "";
+    postImage.value = "";
+  }
+}
+
+// Função que cria o post no DOM
+function renderPost(postData, prepend=false){
+  const post = document.createElement("div");
+  post.classList.add("post");
+  
+  const postHeader = document.createElement("div");
+  postHeader.classList.add("post-header");
+  const avatar = document.createElement("img");
+  avatar.src = postData.user.avatar || "/sously/2017 Sem Título_20250830113613.png";
+  avatar.classList.add("post-avatar");
+  const userInfo = document.createElement("div");
+  userInfo.classList.add("user-info");
+  userInfo.innerHTML = `<strong>${postData.user.name}</strong> <span>${postData.user.username}</span>`;
+  postHeader.appendChild(avatar);
+  postHeader.appendChild(userInfo);
+  
+  post.appendChild(postHeader);
+  
+  if(postData.text) {
+    const p = document.createElement("p");
+    p.textContent = postData.text;
+    post.appendChild(p);
+  }
+  
+  if(postData.image){
+    const img = document.createElement("img");
+    img.src = postData.image;
+    img.classList.add("post-img");
+    post.appendChild(img);
+  }
+  
+  const postFooter = document.createElement("div");
+  postFooter.classList.add("post-footer");
+  
+  // Verifica se é dono do post para mostrar menu diferente
+  const isOwner = postData.user.email === currentUser.email;
+  
+  postFooter.innerHTML = `
+    <div class="post-actions">
+      <span class="material-symbols-rounded" title="Curtir">favorite</span>
+      <span class="material-symbols-rounded" title="Comentários">chat_bubble</span>
+      <span class="material-symbols-rounded" title="Comentário de destaque">stars</span>
+    </div>
+    <div class="post-more">more_vert</div>
+  `;
+  
+  const moreBtn = postFooter.querySelector(".post-more");
+  moreBtn.onclick = () => {
+    const existingMenu = document.querySelector(".more-menu");
+    if(existingMenu) {
+      existingMenu.remove();
+      return;
+    }
+    
+    const menu = document.createElement("div");
+    menu.classList.add("more-menu");
+    
+    if (isOwner) {
+      // Menu para dono do post
+      menu.innerHTML = `
+        <div onclick="deletePost('${postData.id}')">Excluir POST</div>
+        <div>Editar post</div>
+      `;
+    } else {
+      // Menu para outros usuários
+      menu.innerHTML = `
+        <div>Denunciar</div>
+        <div>Esconder</div>
+        <div>Bloquear dono do post</div>
+        <div onclick="viewProfile('${postData.user.email}')">Ir para conta do dono</div>
+        <div>Enviar DM</div>
+      `;
+    }
+    
+    document.body.appendChild(menu);
+    
+    // Posiciona o menu próximo ao botão
+    const rect = moreBtn.getBoundingClientRect();
+    menu.style.position = 'absolute';
+    menu.style.top = (rect.bottom + window.scrollY) + 'px';
+    menu.style.right = (window.innerWidth - rect.right) + 'px';
+    
+    // Fecha o menu ao clicar fora
+    setTimeout(() => {
+      document.addEventListener('click', function closeMenu(e) {
+        if (!menu.contains(e.target) && e.target !== moreBtn) {
+          menu.remove();
+          document.removeEventListener('click', closeMenu);
+        }
+      });
+    }, 100);
+  };
+  
+  post.appendChild(postFooter);
+  
+  if(prepend) feed.prepend(post);
+  else feed.appendChild(post);
+}
+
+// FUNÇÃO PARA EXCLUIR POST (para donos)
+function deletePost(postId) {
+  if (confirm('Tem certeza que deseja excluir este post?')) {
+    let publicPosts = JSON.parse(localStorage.getItem("public_posts")) || [];
+    publicPosts = publicPosts.filter(post => post.id !== postId);
+    localStorage.setItem("public_posts", JSON.stringify(publicPosts));
+    
+    // Atualiza o feed
+    feed.innerHTML = '';
+    publicPosts.forEach(p => renderPost(p));
+  }
+}
+
+// FUNÇÃO PARA VER PERFIL
+function viewProfile(userEmail) {
+  const contas = JSON.parse(localStorage.getItem("contas")) || [];
+  const user = contas.find(u => u.email === userEmail);
+  
+  if (user) {
+    localStorage.setItem("viewingProfile", JSON.stringify(user));
+    window.location.href = "profile.html";
+  }
+}
+
+// SISTEMA DE MODERAÇÃO
+let currentAction = '';
+
 function modAction(action) {
   currentAction = action;
   modPanel.style.display = "none";
@@ -660,7 +872,7 @@ function modAction(action) {
     const userEl = document.createElement('div');
     userEl.className = 'user-selection';
     userEl.innerHTML = `
-      <img src="${user.avatar}" alt="${user.name}">
+      <img src="${user.avatar || '/sously/2017 Sem Título_20250830113613.png'}" alt="${user.name}">
       <div>
         <strong>${user.name}</strong><br>
         <span>${user.email}</span>
@@ -678,7 +890,18 @@ function confirmModAction(user) {
   alert(`${currentAction} aplicado para ${user.name}`);
 }
 
-// Redirecionamento do menu
+// LOGOUT FUNCIONAL
+function logout() {
+  if (confirm('Tem certeza que deseja sair?')) {
+    localStorage.removeItem('userData');
+    window.location.href = 'login.html';
+  }
+}
+
+// Configura o logout no menu
+document.querySelector(".logout").addEventListener("click", logout);
+
+// Redirecionamento para configurações
 document.querySelector(".myacc").addEventListener("click", function() {
   window.location.href = "config.html";
 });
