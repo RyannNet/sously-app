@@ -949,3 +949,43 @@ setupLikesSystem();
                                          </script>
 </body>
 </html>
+
+<!-- SOBREPOSIÇÃO DE DESCONTINUAÇÃO -->
+<div id="overlay">
+  <div class="overlay-content">
+    <h1>Esse site por enquanto foi descontinuado <br> <span>POR ENQUANTO</span></h1>
+    <p>Quem sabe algum dia possamos voltar 🚧</p>
+  </div>
+</div>
+
+<style>
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    z-index: 99999; /* garante que cobre tudo */
+  }
+
+  .overlay-content h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .overlay-content h1 span {
+    color: #FFCB28;
+  }
+
+  .overlay-content p {
+    font-size: 1.2rem;
+    color: #ccc;
+  }
+</style>
