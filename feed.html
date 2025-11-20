@@ -23,7 +23,7 @@
       background: #FFFFFF;
       color: #1E1E1E;
       font-family: "Rubik", sans-serif;
-      padding-bottom: 65px; /* Espaço para o footer fixo */
+      padding-bottom: 65px;
     }
     header{
       width: 100%;
@@ -119,7 +119,6 @@
       min-height: calc(100vh - 125px);
     }
     
-    /* Estilos para a área de postagem */
     .post-box{
       margin-bottom: 20px;
       display: flex;
@@ -139,59 +138,59 @@
       border-radius: 10px;
     }
 
-   .post-box input[type="file"]{
-  display: none; /* esconde totalmente o input */
-  pointer-events: none; /* garante que não interfira */
-}
+    .post-box input[type="file"]{
+      display: none;
+    }
 
-.post-box .file-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  border: 2px dashed #FFCB28;
-  border-radius: 15px;
-  padding: 15px;
-  cursor: pointer;
-  transition: 0.3s;
-  color: #FFCB28;
-  font-weight: bold;
-  font-size: 14px;
-}
+    .post-box .file-container{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 2px dashed #FFCB28;
+      border-radius: 15px;
+      padding: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      color: #FFCB28;
+      font-weight: bold;
+      font-size: 14px;
+    }
 
-.post-box .file-container:hover{
-  background: #FFF5E0;
-  border-color: #FFB700;
-  color: #FF9000;
-}
+    .post-box .file-container:hover{
+      background: #FFF5E0;
+      border-color: #FFB700;
+      color: #FF9000;
+    }
 
-.post-box .file-container span{
-  font-size: 24px;
-}
+    .post-box .file-container span{
+      font-size: 24px;
+    }
 
-.post-box button{
-  width: 100%; /* ocupa toda a largura do container */
-  background: #FFCB28;
-  color: #000;
-  border: none;
-  border-radius: 25px;
-  padding: 12px 0;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-  margin-top: 10px;
-}
+    .post-box button{
+      width: 100%;
+      background: #FFCB28;
+      color: #000;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 0;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
 
-.post-box button:hover{
-  background: #000;
-  color: #FFCB28;
-  transform: translateY(-2px);
-}
+    .post-box button:hover{
+      background: #000;
+      color: #FFCB28;
+      transform: translateY(-2px);
+    }
 
-.post-box button:active{
-  transform: translateY(0);
-}
+    .post-box button:active{
+      transform: translateY(0);
+    }
+
     #feed{
       display: flex;
       flex-direction: column;
@@ -200,10 +199,11 @@
 
     .post{
       background: #fff;
-      border: 1px solid #E1E1E100;
+      border: 1px solid #E1E1E1;
       border-radius: 15px;
       padding: 15px;
       width: 100%;
+      position: relative;
     }
     
     .post-header {
@@ -239,6 +239,88 @@
       margin-top: 10px;
     }
 
+    .post-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      padding-top: 10px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .post-actions span {
+      cursor: pointer;
+      font-size: 22px;
+      color: #666;
+      transition: 0.2s;
+    }
+
+    .post-actions span:hover {
+      color: #FFA900;
+    }
+
+    .post-actions span.active {
+      color: #FF6E6E;
+    }
+
+    .post-more {
+      cursor: pointer;
+      font-size: 22px;
+      color: #666;
+      padding: 5px;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+
+    .post-more:hover {
+      background: #f0f0f0;
+    }
+
+    .more-menu {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 8px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 1000;
+      min-width: 180px;
+    }
+
+    .more-menu div {
+      cursor: pointer;
+      padding: 8px 16px;
+      transition: 0.2s;
+      font-size: 14px;
+    }
+
+    .more-menu div:hover {
+      background: #f2f2f2;
+    }
+
+    .more-menu div:first-child {
+      border-radius: 8px 8px 0 0;
+    }
+
+    .more-menu div:last-child {
+      border-radius: 0 0 8px 8px;
+    }
+
+    .file-name {
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      margin-top: 5px;
+    }
+
     /* Responsivo */
     @media (max-width: 768px){
       aside{
@@ -257,7 +339,7 @@
         gap: 2rem;
       }
       body {
-        padding-bottom: 60px; /* Ajuste para o footer menor em mobile */
+        padding-bottom: 60px;
       }
     }
   </style>
@@ -279,17 +361,17 @@
   </aside>
 
   <div class="contents-js">
-    <!-- Conteúdo dinâmico -->
-   <div class="post-box">
-  <textarea id="postText" placeholder="O que você está pensando?"></textarea>
-  
-  <label class="file-container" for="postImage">
-    <span class="material-symbols-rounded">image</span> Adicionar Foto
-  </label>
-  <input type="file" id="postImage" accept="image/*">
-  
-  <button onclick="addPost()">Postar</button>
-</div>
+    <div class="post-box">
+      <textarea id="postText" placeholder="O que você está pensando?"></textarea>
+      
+      <label class="file-container" for="postImage">
+        <span class="material-symbols-rounded">image</span> Adicionar Foto
+      </label>
+      <input type="file" id="postImage" accept="image/*">
+      <div id="fileName" class="file-name"></div>
+      
+      <button onclick="addPost()">Postar</button>
+    </div>
     <div id="feed"></div>
   </div>
 
@@ -304,380 +386,249 @@
   </footer>
 
   <script>
-// CÓDIGO ATUALIZADO PARA USAR O SERVIDOR DO RENDER
-const feed = document.getElementById("feed");
-const postText = document.getElementById("postText");
-const postImage = document.getElementById("postImage");
-const modButton = document.getElementById("modButton");
-const modPanel = document.getElementById("modPanel");
-const modModal = document.getElementById("modModal");
-const modModalTitle = document.getElementById("modModalTitle");
-const modModalContent = document.getElementById("modModalContent");
+    // Dados iniciais
+    const feed = document.getElementById("feed");
+    const postText = document.getElementById("postText");
+    const postImage = document.getElementById("postImage");
+    const fileName = document.getElementById("fileName");
 
-// URL da API
-const API_URL = "https://sously-app.onrender.com/api"; // Exemplo de URL de API
+    // Usuário atual (simulado - na prática viria do login)
+    let currentUser = {
+      name: "Usuário Teste",
+      username: "@usuario",
+      email: "usuario@teste.com",
+      avatar: "/sously/2017 Sem Título_20250830113613.png"
+    };
 
-// Pega usuário logado do localStorage (manter isso no cliente)
-let currentUser = JSON.parse(localStorage.getItem("userData"));
-if(!currentUser){
-  alert("Faça login primeiro!");
-  window.location.href = "login.html";
-}
-
-// Verifica se é moderador
-const isModerator = currentUser.email === "willianbotcontact@gmail.com";
-if (isModerator) {
-  modButton.style.display = "flex";
-
-  modButton.addEventListener("click", function() {
-    modPanel.style.display = modPanel.style.display === "flex" ? "none" : "flex";
-  });
-
-  document.addEventListener('click', function(event) {
-    if (!modPanel.contains(event.target) && !modButton.contains(event.target)) {
-      modPanel.style.display = 'none';
+    // Verifica se tem dados no localStorage
+    const savedUser = localStorage.getItem("userData");
+    if (savedUser) {
+      currentUser = JSON.parse(savedUser);
+    } else {
+      // Se não tem usuário, salva o padrão
+      localStorage.setItem("userData", JSON.stringify(currentUser));
     }
-  });
-}
 
-// Carrega posts do servidor
-async function loadPosts() {
-  try {
-    const response = await fetch(`${API_URL}/posts`);
-    if (!response.ok) {
-      throw new Error("Erro ao carregar posts");
-    }
-    const posts = await response.json();
-    feed.innerHTML = ''; // Limpa o feed antes de renderizar
-    posts.forEach(p => renderPost(p));
-  } catch (error) {
-    console.error("Erro:", error);
-    alert("Não foi possível carregar os posts. Tente novamente mais tarde.");
-  }
-}
+    // Mostrar nome do arquivo selecionado
+    postImage.addEventListener('change', function(e) {
+      if (this.files.length > 0) {
+        fileName.textContent = `Arquivo: ${this.files[0].name}`;
+      } else {
+        fileName.textContent = '';
+      }
+    });
 
-// Função de postar - AGORA ENVIA PARA O SERVIDOR
-async function addPost(){
-  const text = postText.value.trim();
-  const file = postImage.files[0];
+    // Função principal de postar
+    function addPost() {
+      const text = postText.value.trim();
+      const file = postImage.files[0];
 
-  if(!text && !file) return;
-
-  // Lógica para obter a imagem em base64 (adaptada)
-  const getImageData = (file) => {
-    return new Promise((resolve) => {
-      if (!file) {
-        resolve(null);
+      if (!text && !file) {
+        alert("Digite algo ou adicione uma imagem!");
         return;
       }
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.readAsDataURL(file);
-    });
-  };
 
-  const imageData = await getImageData(file);
-
-  const newPost = {
-    user: currentUser,
-    text: text,
-    image: imageData, // O servidor deve lidar com base64 ou você deve mudar para FormData
-    timestamp: Date.now(),
-    id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9) // Id do post pode ser gerado no servidor
-  };
-
-  try {
-    const response = await fetch(`${API_URL}/posts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newPost)
-    });
-    
-    if (!response.ok) {
-      throw new Error("Erro ao postar. Tente novamente.");
+      // Processa a imagem se houver
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          createPost(text, e.target.result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        createPost(text, null);
+      }
     }
 
-    const createdPost = await response.json(); // Servidor retorna o post criado
-    renderPost(createdPost, true);
-    postText.value = "";
-    postImage.value = "";
-  } catch (error) {
-    console.error("Erro:", error);
-    alert("Não foi possível criar o post. Verifique a conexão.");
-  }
-}
+    function createPost(text, imageData) {
+      const newPost = {
+        id: 'post_' + Date.now(),
+        user: currentUser,
+        text: text,
+        image: imageData,
+        timestamp: new Date().toLocaleString('pt-BR'),
+        likes: 0,
+        comments: 0,
+        isLiked: false
+      };
 
+      // Salva no localStorage
+      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      posts.unshift(newPost);
+      localStorage.setItem('posts', JSON.stringify(posts));
 
-// Função que cria o post no DOM (mantém-se a mesma)
-function renderPost(postData, prepend=false){
-  const post = document.createElement("div");
-  post.classList.add("post");
+      // Renderiza o post
+      renderPost(newPost, true);
 
-  const postHeader = document.createElement("div");
-  postHeader.classList.add("post-header");
-  const avatar = document.createElement("img");
-  avatar.src = postData.user.avatar || "/sously/2017 Sem Título_20250830113613.png";
-  avatar.classList.add("post-avatar");
-  const userInfo = document.createElement("div");
-  userInfo.classList.add("user-info");
-  userInfo.innerHTML = `<strong>${postData.user.name}</strong> <span>${postData.user.username}</span>`;
-  postHeader.appendChild(avatar);
-  postHeader.appendChild(userInfo);
-
-  post.appendChild(postHeader);
-
-  if(postData.text) {
-    const p = document.createElement("p");
-    p.textContent = postData.text;
-    post.appendChild(p);
-  }
-
-  if(postData.image){
-    const img = document.createElement("img");
-    img.src = postData.image;
-    img.classList.add("post-img");
-    post.appendChild(img);
-  }
-
-  const postFooter = document.createElement("div");
-  postFooter.classList.add("post-footer");
-
-  const isOwner = postData.user.email === currentUser.email;
-
-  postFooter.innerHTML = `
-    <div class="post-actions">
-      <span class="material-symbols-rounded" title="Curtir">favorite</span>
-      <span class="material-symbols-rounded" title="Comentários">chat_bubble</span>
-      <span class="material-symbols-rounded" title="Comentário de destaque">stars</span>
-    </div>
-    <div class="post-more">more_vert</div>
-  `;
-
-  const moreBtn = postFooter.querySelector(".post-more");
-  moreBtn.onclick = () => {
-    const existingMenu = document.querySelector(".more-menu");
-    if(existingMenu) {
-      existingMenu.remove();
-      return;
+      // Limpa os campos
+      postText.value = '';
+      postImage.value = '';
+      fileName.textContent = '';
     }
 
-    const menu = document.createElement("div");
-    menu.classList.add("more-menu");
+    // Renderiza um post
+    function renderPost(postData, prepend = false) {
+      const post = document.createElement("div");
+      post.classList.add("post");
+      post.id = postData.id;
 
-    if (isOwner) {
-      menu.innerHTML = `
-        <div onclick="deletePost('${postData.id}')">Excluir POST</div>
-        <div>Editar post</div>
+      post.innerHTML = `
+        <div class="post-header">
+          <img class="post-avatar" src="${postData.user.avatar}" alt="${postData.user.name}">
+          <div class="user-info">
+            <strong>${postData.user.name}</strong>
+            <span>${postData.user.username}</span>
+          </div>
+        </div>
+        
+        ${postData.text ? `<p>${postData.text}</p>` : ''}
+        
+        ${postData.image ? `<img class="post-img" src="${postData.image}" alt="Imagem do post">` : ''}
+        
+        <div class="post-footer">
+          <div class="post-actions">
+            <span class="material-symbols-rounded ${postData.isLiked ? 'active' : ''}" onclick="toggleLike('${postData.id}')">favorite</span>
+            <span class="material-symbols-rounded" onclick="focusComment('${postData.id}')">chat_bubble</span>
+            <span class="material-symbols-rounded">stars</span>
+          </div>
+          <div class="post-more material-symbols-rounded" onclick="showMoreMenu(this, '${postData.id}')">more_vert</div>
+        </div>
       `;
-    } else {
-      menu.innerHTML = `
-        <div>Denunciar</div>
-        <div>Esconder</div>
-        <div>Bloquear dono do post</div>
-        <div onclick="viewProfile('${postData.user.email}')">Ir para conta do dono</div>
-        <div>Enviar DM</div>
-      `;
+
+      if (prepend) {
+        feed.prepend(post);
+      } else {
+        feed.appendChild(post);
+      }
     }
 
-    document.body.appendChild(menu);
-
-    const rect = moreBtn.getBoundingClientRect();
-    menu.style.position = 'absolute';
-    menu.style.top = (rect.bottom + window.scrollY) + 'px';
-    menu.style.right = (window.innerWidth - rect.right) + 'px';
-
-    setTimeout(() => {
-      document.addEventListener('click', function closeMenu(e) {
-        if (!menu.contains(e.target) && e.target !== moreBtn) {
-          menu.remove();
-          document.removeEventListener('click', closeMenu);
-        }
-      });
-    }, 100);
-  };
-
-  post.appendChild(postFooter);
-
-  if(prepend) feed.prepend(post);
-  else feed.appendChild(post);
-}
-
-// FUNÇÃO PARA EXCLUIR POST (ENVIA REQUISIÇÃO PARA O SERVIDOR)
-async function deletePost(postId) {
-  if (confirm('Tem certeza que deseja excluir este post?')) {
-    try {
-      const response = await fetch(`${API_URL}/posts/${postId}`, {
-        method: 'DELETE'
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao excluir post.");
+    // Menu de opções
+    function showMoreMenu(button, postId) {
+      // Remove menu existente
+      const existingMenu = document.querySelector(".more-menu");
+      if (existingMenu) {
+        existingMenu.remove();
+        return;
       }
 
-      await loadPosts(); // Recarrega os posts após a exclusão
-    } catch (error) {
-      console.error("Erro:", error);
-      alert("Não foi possível excluir o post.");
+      const post = document.getElementById(postId);
+      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      const postData = posts.find(p => p.id === postId);
+      const isOwner = postData && postData.user.email === currentUser.email;
+
+      const menu = document.createElement("div");
+      menu.classList.add("more-menu");
+
+      if (isOwner) {
+        menu.innerHTML = `
+          <div onclick="deletePost('${postId}')">Excluir POST</div>
+          <div onclick="editPost('${postId}')">Editar post</div>
+        `;
+      } else {
+        menu.innerHTML = `
+          <div onclick="reportPost('${postId}')">Denunciar</div>
+          <div onclick="hidePost('${postId}')">Esconder</div>
+          <div onclick="blockUser('${postData.user.email}')">Bloquear usuário</div>
+          <div onclick="viewProfile('${postData.user.email}')">Ver perfil</div>
+        `;
+      }
+
+      document.body.appendChild(menu);
+
+      // Posiciona o menu
+      const rect = button.getBoundingClientRect();
+      menu.style.top = (rect.bottom + window.scrollY) + 'px';
+      menu.style.left = (rect.left + window.scrollX - 150) + 'px';
+
+      // Fecha ao clicar fora
+      setTimeout(() => {
+        document.addEventListener('click', function closeMenu(e) {
+          if (!menu.contains(e.target) && e.target !== button) {
+            menu.remove();
+            document.removeEventListener('click', closeMenu);
+          }
+        });
+      }, 100);
     }
-  }
-}
 
-// FUNÇÃO PARA VER PERFIL (usa localStorage para transferir dados, o que é OK para este caso)
-function viewProfile(userEmail) {
-  const contas = JSON.parse(localStorage.getItem("contas")) || [];
-  const user = contas.find(u => u.email === userEmail);
+    // Funções de interação
+    function toggleLike(postId) {
+      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      const postIndex = posts.findIndex(p => p.id === postId);
+      
+      if (postIndex !== -1) {
+        posts[postIndex].isLiked = !posts[postIndex].isLiked;
+        posts[postIndex].likes += posts[postIndex].isLiked ? 1 : -1;
+        localStorage.setItem('posts', JSON.stringify(posts));
+        loadPosts();
+      }
+    }
 
-  if (user) {
-    localStorage.setItem("viewingProfile", JSON.stringify(user));
-    window.location.href = "profile.html";
-  }
-}
+    function focusComment(postId) {
+      postText.focus();
+      postText.placeholder = `Respondendo ao post ${postId.substring(0, 8)}...`;
+    }
 
-// SISTEMA DE MODERAÇÃO
-let currentAction = '';
+    function deletePost(postId) {
+      if (confirm('Tem certeza que deseja excluir este post?')) {
+        const posts = JSON.parse(localStorage.getItem('posts')) || [];
+        const updatedPosts = posts.filter(p => p.id !== postId);
+        localStorage.setItem('posts', JSON.stringify(updatedPosts));
+        document.getElementById(postId)?.remove();
+      }
+    }
 
-function modAction(action) {
-  // Lógica de moderação permanece a mesma, já que ela é baseada no frontend
-  currentAction = action;
-  modPanel.style.display = "none";
+    function editPost(postId) {
+      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      const post = posts.find(p => p.id === postId);
+      
+      if (post) {
+        postText.value = post.text;
+        postText.focus();
+        deletePost(postId);
+      }
+    }
 
-  const contas = JSON.parse(localStorage.getItem("contas")) || [];
+    function reportPost(postId) {
+      alert(`Post ${postId} denunciado!`);
+    }
 
-  modModalTitle.textContent = `Selecionar Usuário para ${action}`;
-  modModalContent.innerHTML = '';
+    function hidePost(postId) {
+      document.getElementById(postId).style.display = 'none';
+    }
 
-  contas.forEach(user => {
-    const userEl = document.createElement('div');
-    userEl.className = 'user-selection';
-    userEl.innerHTML = `
-      <img src="${user.avatar || '/sously/2017 Sem Título_20250830113613.png'}" alt="${user.name}">
-      <div>
-        <strong>${user.name}</strong><br>
-        <span>${user.email}</span>
-      </div>
-    `;
-    userEl.onclick = () => confirmModAction(user);
-    modModalContent.appendChild(userEl);
-  });
+    function blockUser(userEmail) {
+      if (confirm(`Bloquear usuário ${userEmail}?`)) {
+        alert('Usuário bloqueado!');
+      }
+    }
 
-  modModal.style.display = 'flex';
-}
+    function viewProfile(userEmail) {
+      alert(`Ver perfil de ${userEmail}`);
+    }
 
-function confirmModAction(user) {
-  modModal.style.display = 'none';
-  alert(`${currentAction} aplicado para ${user.name}`);
-}
+    // Logout
+    document.querySelector(".logout").addEventListener("click", function() {
+      if (confirm('Tem certeza que deseja sair?')) {
+        localStorage.removeItem('userData');
+        window.location.href = 'login.html';
+      }
+    });
 
-// LOGOUT FUNCIONAL
-function logout() {
-  if (confirm('Tem certeza que deseja sair?')) {
-    localStorage.removeItem('userData');
-    window.location.href = 'login.html';
-  }
-}
+    // Navegação
+    document.querySelector(".myacc").addEventListener("click", function() {
+      window.location.href = "config.html";
+    });
 
-// Configura o logout no menu
-document.querySelector(".logout").addEventListener("click", logout);
+    // Carrega posts ao iniciar
+    function loadPosts() {
+      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      feed.innerHTML = '';
+      posts.forEach(post => renderPost(post));
+    }
 
-// Redirecionamento para configurações
-document.querySelector(".myacc").addEventListener("click", function() {
-  window.location.href = "config.html";
-});
-
-// Fechar modal ao clicar fora
-modModal.addEventListener('click', (e) => {
-  if (e.target === modModal) {
-    modModal.style.display = 'none';
-  }
-});
-
-// Sistema de likes público (mantido no frontend para simplicidade)
-function setupLikesSystem() {
-  if (!localStorage.getItem("post_likes")) {
-    localStorage.setItem("post_likes", JSON.stringify({}));
-  }
-}
-
-function likePost(postId) {
-  const likes = JSON.parse(localStorage.getItem("post_likes")) || {};
-  if (!likes[postId]) likes[postId] = [];
-
-  const userIndex = likes[postId].indexOf(currentUser.email);
-  if (userIndex === -1) {
-    likes[postId].push(currentUser.email);
-  } else {
-    likes[postId].splice(userIndex, 1);
-  }
-
-  localStorage.setItem("post_likes", JSON.stringify(likes));
-}
-
-function isPostLiked(postId) {
-  const likes = JSON.parse(localStorage.getItem("post_likes")) || {};
-  return likes[postId] ? likes[postId].includes(currentUser.email) : false;
-}
-
-function getLikeCount(postId) {
-  const likes = JSON.parse(localStorage.getItem("post_likes")) || {};
-  return likes[postId] ? likes[postId].length : 0;
-}
-
-// Inicializa o sistema de likes e carrega os posts ao carregar a página
-setupLikesSystem();
-loadPosts();
-
+    // Inicializa
+    loadPosts();
   </script>
-  
-  <style>.post-footer {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-top: 10px;
-}
-
-.post-actions span {
-cursor: pointer;
-font-size: 22px;
-color: #FFA900;
-margin-right: 15px;
-transition: 0.2s;
-}
-
-.post-actions span:hover {
-color: #FF6E00;
-}
-
-.post-more {
-cursor: pointer;
-font-size: 22px;
-}
-
-.more-menu {
-position: absolute;
-background: #fff;
-border: 1px solid #ccc;
-border-radius: 10px;
-padding: 5px;
-top: 35px;
-right: 10px;
-display: flex;
-flex-direction: column;
-gap: 5px;
-z-index: 200;
-}
-
-.more-menu div {
-cursor: pointer;
-padding: 5px 10px;
-transition: 0.2s;
-}
-
-.more-menu div:hover {
-background: #f2f2f2;
-}</style>
-
-
 </body>
 </html>
