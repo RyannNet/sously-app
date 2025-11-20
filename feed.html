@@ -264,7 +264,7 @@
       color: #FFA900;
     }
 
-    .post-actions span.active {
+    .post-actions span.liked {
       color: #FF6E6E;
     }
 
@@ -306,14 +306,6 @@
       background: #f2f2f2;
     }
 
-    .more-menu div:first-child {
-      border-radius: 8px 8px 0 0;
-    }
-
-    .more-menu div:last-child {
-      border-radius: 0 0 8px 8px;
-    }
-
     .file-name {
       font-size: 12px;
       color: #666;
@@ -346,7 +338,7 @@
 </head>
 <body>
   <header>
-    <img class="logo" src="/sously/2018 Sem Título_20250830122829.png" alt="logo">
+    <img class="logo" src="/sously/2018 Sem Título_20250830122829.png" alt="logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjRkZDMjI4IiByeD0iOCIvPgo8dGV4dCB4PSIyMCIgeT0iMjUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzAwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TG9nbzwvdGV4dD4KPC9zdmc+'">
   </header>
 
   <aside>
@@ -377,37 +369,123 @@
 
   <footer>
     <div class="ic_footer">
-      <a href="#"><span class="material-symbols-rounded">home</span></a>
+      <a href="#" onclick="loadPosts()"><span class="material-symbols-rounded">home</span></a>
       <a href="#"><span class="material-symbols-rounded">search</span></a>
       <a href="#"><span class="material-symbols-rounded">group</span></a>
-      <a href="#"><span class="material-symbols-rounded">add</span></a>
+      <a href="#" onclick="postText.focus()"><span class="material-symbols-rounded">add</span></a>
       <a href="#"><span class="material-symbols-rounded">settings</span></a>
     </div>
   </footer>
 
   <script>
-    // Dados iniciais
+    // Elementos principais
     const feed = document.getElementById("feed");
     const postText = document.getElementById("postText");
     const postImage = document.getElementById("postImage");
     const fileName = document.getElementById("fileName");
 
-    // Usuário atual (simulado - na prática viria do login)
-    let currentUser = {
-      name: "Usuário Teste",
-      username: "@usuario",
-      email: "usuario@teste.com",
-      avatar: "/sously/2017 Sem Título_20250830113613.png"
+    // Usuário padrão para posts corrompidos
+    const defaultUser = {
+      name: "Usuário",
+      username: "@usuario", 
+      email: "usuario@exemplo.com",
+      avatar: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGRkMyMjgiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIxNiIgcj0iNiIgZmlsbD0iIzAwMCIvPgo8cGF0aCBkPSJNNyAyN0M3IDIzLjUgMTMgMjEgMjAgMjFTMzMgMjMuNSAzMyAyN1YzM0g3VjI3WiIgZmlsbD0iIzAwMCIvPgo8L3N2Zz4K"
     };
 
-    // Verifica se tem dados no localStorage
-    const savedUser = localStorage.getItem("userData");
-    if (savedUser) {
-      currentUser = JSON.parse(savedUser);
-    } else {
-      // Se não tem usuário, salva o padrão
-      localStorage.setItem("userData", JSON.stringify(currentUser));
+    // Inicializa dados
+    function initializeData() {
+      // Usuário atual
+      if (!localStorage.getItem('userData')) {
+        localStorage.setItem('userData', JSON.stringify(defaultUser));
+      }
+
+      // Corrige posts corrompidos
+      fixCorruptedPosts();
     }
+
+    // FUNÇÃO PARA CORRIGIR POSTS CORROMPIDOS
+    function fixCorruptedPosts() {
+      console.log('Verificando posts corrompidos...');
+      
+      // Tenta carregar posts da nova estrutura
+      let posts = [];
+      try {
+        const newPosts = localStorage.getItem('sously_posts');
+        if (newPosts) {
+          posts = JSON.parse(newPosts);
+          console.log('Posts na nova estrutura:', posts.length);
+        }
+      } catch (e) {
+        console.log('Erro ao carregar posts novos:', e);
+        posts = [];
+      }
+
+      // Tenta carregar posts da estrutura antiga
+      try {
+        const oldPosts = localStorage.getItem('posts');
+        if (oldPosts) {
+          const parsedOldPosts = JSON.parse(oldPosts);
+          console.log('Posts na estrutura antiga:', parsedOldPosts.length);
+          
+          // Se não tem posts na nova estrutura, migra os antigos
+          if (posts.length === 0) {
+            posts = fixPostsStructure(parsedOldPosts);
+            localStorage.setItem('sously_posts', JSON.stringify(posts));
+            console.log('Posts migrados e corrigidos:', posts.length);
+          }
+        }
+      } catch (e) {
+        console.log('Erro ao carregar posts antigos:', e);
+      }
+
+      // Se ainda não tem posts, cria alguns de exemplo
+      if (posts.length === 0) {
+        posts = [createSamplePost()];
+        localStorage.setItem('sously_posts', JSON.stringify(posts));
+        console.log('Posts de exemplo criados');
+      }
+
+      return posts;
+    }
+
+    // CORRIGE A ESTRUTURA DOS POSTS
+    function fixPostsStructure(posts) {
+      return posts.map(post => {
+        // Garante que o post tenha estrutura correta
+        const fixedPost = {
+          id: post.id || 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+          user: post.user ? {
+            name: post.user.name || "Usuário",
+            username: post.user.username || "@usuario",
+            email: post.user.email || "usuario@exemplo.com",
+            avatar: post.user.avatar || defaultUser.avatar
+          } : defaultUser,
+          text: post.text || "",
+          image: post.image || null,
+          timestamp: post.timestamp || new Date().toLocaleString('pt-BR'),
+          likes: post.likes || 0,
+          isLiked: post.isLiked || false
+        };
+        
+        console.log('Post corrigido:', fixedPost.id, fixedPost.user.name);
+        return fixedPost;
+      });
+    }
+
+    function createSamplePost() {
+      return {
+        id: 'post_1',
+        user: defaultUser,
+        text: "Bem-vindo ao Sously! 👋",
+        image: null,
+        timestamp: new Date().toLocaleString('pt-BR'),
+        likes: 3,
+        isLiked: false
+      };
+    }
+
+    // Usuário atual
+    let currentUser = JSON.parse(localStorage.getItem('userData'));
 
     // Mostrar nome do arquivo selecionado
     postImage.addEventListener('change', function(e) {
@@ -428,7 +506,6 @@
         return;
       }
 
-      // Processa a imagem se houver
       if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -442,20 +519,19 @@
 
     function createPost(text, imageData) {
       const newPost = {
-        id: 'post_' + Date.now(),
+        id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
         user: currentUser,
         text: text,
         image: imageData,
         timestamp: new Date().toLocaleString('pt-BR'),
         likes: 0,
-        comments: 0,
         isLiked: false
       };
 
       // Salva no localStorage
-      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      const posts = JSON.parse(localStorage.getItem('sously_posts')) || [];
       posts.unshift(newPost);
-      localStorage.setItem('posts', JSON.stringify(posts));
+      localStorage.setItem('sously_posts', JSON.stringify(posts));
 
       // Renderiza o post
       renderPost(newPost, true);
@@ -464,83 +540,94 @@
       postText.value = '';
       postImage.value = '';
       fileName.textContent = '';
+      
+      alert('Post criado com sucesso!');
     }
 
-    // Renderiza um post
+    // Renderiza um post - AGORA COM PROTEÇÃO CONTRA ERROS
     function renderPost(postData, prepend = false) {
-      const post = document.createElement("div");
-      post.classList.add("post");
-      post.id = postData.id;
+      try {
+        // Garante que os dados do usuário existem
+        const safeUser = postData.user || defaultUser;
+        const safeAvatar = safeUser.avatar || defaultUser.avatar;
+        const safeName = safeUser.name || "Usuário";
+        const safeUsername = safeUser.username || "@usuario";
 
-      post.innerHTML = `
-        <div class="post-header">
-          <img class="post-avatar" src="${postData.user.avatar}" alt="${postData.user.name}">
-          <div class="user-info">
-            <strong>${postData.user.name}</strong>
-            <span>${postData.user.username}</span>
-          </div>
-        </div>
-        
-        ${postData.text ? `<p>${postData.text}</p>` : ''}
-        
-        ${postData.image ? `<img class="post-img" src="${postData.image}" alt="Imagem do post">` : ''}
-        
-        <div class="post-footer">
-          <div class="post-actions">
-            <span class="material-symbols-rounded ${postData.isLiked ? 'active' : ''}" onclick="toggleLike('${postData.id}')">favorite</span>
-            <span class="material-symbols-rounded" onclick="focusComment('${postData.id}')">chat_bubble</span>
-            <span class="material-symbols-rounded">stars</span>
-          </div>
-          <div class="post-more material-symbols-rounded" onclick="showMoreMenu(this, '${postData.id}')">more_vert</div>
-        </div>
-      `;
+        const post = document.createElement("div");
+        post.classList.add("post");
+        post.id = postData.id;
 
-      if (prepend) {
-        feed.prepend(post);
-      } else {
-        feed.appendChild(post);
+        post.innerHTML = `
+          <div class="post-header">
+            <img class="post-avatar" src="${safeAvatar}" alt="${safeName}" onerror="this.src='${defaultUser.avatar}'">
+            <div class="user-info">
+              <strong>${safeName}</strong>
+              <span>${safeUsername}</span>
+            </div>
+          </div>
+          
+          ${postData.text ? `<p>${postData.text}</p>` : ''}
+          
+          ${postData.image ? `<img class="post-img" src="${postData.image}" alt="Imagem do post" onclick="viewImage('${postData.image}')" style="cursor: pointer;">` : ''}
+          
+          <div class="post-footer">
+            <div class="post-actions">
+              <span class="material-symbols-rounded ${postData.isLiked ? 'liked' : ''}" onclick="toggleLike('${postData.id}')" title="${postData.likes || 0} curtidas">favorite</span>
+              <span class="material-symbols-rounded" onclick="focusComment('${postData.id}')">chat_bubble</span>
+              <span class="material-symbols-rounded" onclick="sharePost('${postData.id}')">share</span>
+            </div>
+            <span style="font-size: 12px; color: #666;">${postData.timestamp || 'Agora'}</span>
+            <div class="post-more material-symbols-rounded" onclick="showMoreMenu(this, '${postData.id}')">more_vert</div>
+          </div>
+        `;
+
+        if (prepend) {
+          feed.prepend(post);
+        } else {
+          feed.appendChild(post);
+        }
+      } catch (error) {
+        console.error('Erro ao renderizar post:', error, postData);
       }
     }
 
     // Menu de opções
     function showMoreMenu(button, postId) {
-      // Remove menu existente
       const existingMenu = document.querySelector(".more-menu");
       if (existingMenu) {
         existingMenu.remove();
         return;
       }
 
-      const post = document.getElementById(postId);
-      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      const posts = JSON.parse(localStorage.getItem('sously_posts')) || [];
       const postData = posts.find(p => p.id === postId);
-      const isOwner = postData && postData.user.email === currentUser.email;
+      if (!postData) return;
+
+      const safeUser = postData.user || defaultUser;
+      const isOwner = safeUser.email === currentUser.email;
 
       const menu = document.createElement("div");
       menu.classList.add("more-menu");
 
       if (isOwner) {
         menu.innerHTML = `
-          <div onclick="deletePost('${postId}')">Excluir POST</div>
-          <div onclick="editPost('${postId}')">Editar post</div>
+          <div onclick="deletePost('${postId}')">🗑️ Excluir POST</div>
+          <div onclick="editPost('${postId}')">✏️ Editar post</div>
         `;
       } else {
         menu.innerHTML = `
-          <div onclick="reportPost('${postId}')">Denunciar</div>
-          <div onclick="hidePost('${postId}')">Esconder</div>
-          <div onclick="blockUser('${postData.user.email}')">Bloquear usuário</div>
-          <div onclick="viewProfile('${postData.user.email}')">Ver perfil</div>
+          <div onclick="reportPost('${postId}')">🚨 Denunciar</div>
+          <div onclick="hidePost('${postId}')">👁️ Esconder</div>
+          <div onclick="viewProfile('${safeUser.email}')">👤 Ver perfil</div>
         `;
       }
 
       document.body.appendChild(menu);
 
-      // Posiciona o menu
       const rect = button.getBoundingClientRect();
       menu.style.top = (rect.bottom + window.scrollY) + 'px';
       menu.style.left = (rect.left + window.scrollX - 150) + 'px';
 
-      // Fecha ao clicar fora
       setTimeout(() => {
         document.addEventListener('click', function closeMenu(e) {
           if (!menu.contains(e.target) && e.target !== button) {
@@ -553,54 +640,59 @@
 
     // Funções de interação
     function toggleLike(postId) {
-      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      const posts = JSON.parse(localStorage.getItem('sously_posts')) || [];
       const postIndex = posts.findIndex(p => p.id === postId);
       
       if (postIndex !== -1) {
         posts[postIndex].isLiked = !posts[postIndex].isLiked;
         posts[postIndex].likes += posts[postIndex].isLiked ? 1 : -1;
-        localStorage.setItem('posts', JSON.stringify(posts));
+        localStorage.setItem('sously_posts', JSON.stringify(posts));
         loadPosts();
       }
     }
 
     function focusComment(postId) {
       postText.focus();
-      postText.placeholder = `Respondendo ao post ${postId.substring(0, 8)}...`;
+      postText.placeholder = `Respondendo ao post...`;
+    }
+
+    function sharePost(postId) {
+      alert(`Post ${postId} compartilhado!`);
+    }
+
+    function viewImage(imageSrc) {
+      const newWindow = window.open();
+      newWindow.document.write(`<img src="${imageSrc}" style="max-width: 100%; height: auto;">`);
     }
 
     function deletePost(postId) {
       if (confirm('Tem certeza que deseja excluir este post?')) {
-        const posts = JSON.parse(localStorage.getItem('posts')) || [];
+        const posts = JSON.parse(localStorage.getItem('sously_posts')) || [];
         const updatedPosts = posts.filter(p => p.id !== postId);
-        localStorage.setItem('posts', JSON.stringify(updatedPosts));
+        localStorage.setItem('sously_posts', JSON.stringify(updatedPosts));
         document.getElementById(postId)?.remove();
+        alert('Post excluído!');
       }
     }
 
     function editPost(postId) {
-      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      const posts = JSON.parse(localStorage.getItem('sously_posts')) || [];
       const post = posts.find(p => p.id === postId);
       
       if (post) {
-        postText.value = post.text;
+        postText.value = post.text || '';
         postText.focus();
         deletePost(postId);
       }
     }
 
     function reportPost(postId) {
-      alert(`Post ${postId} denunciado!`);
+      alert(`Post ${postId} denunciado aos moderadores!`);
     }
 
     function hidePost(postId) {
       document.getElementById(postId).style.display = 'none';
-    }
-
-    function blockUser(userEmail) {
-      if (confirm(`Bloquear usuário ${userEmail}?`)) {
-        alert('Usuário bloqueado!');
-      }
+      alert('Post escondido!');
     }
 
     function viewProfile(userEmail) {
@@ -611,24 +703,56 @@
     document.querySelector(".logout").addEventListener("click", function() {
       if (confirm('Tem certeza que deseja sair?')) {
         localStorage.removeItem('userData');
-        window.location.href = 'login.html';
+        alert('Logout realizado!');
       }
     });
 
     // Navegação
     document.querySelector(".myacc").addEventListener("click", function() {
-      window.location.href = "config.html";
+      alert('Indo para configurações...');
     });
 
-    // Carrega posts ao iniciar
+    // Carrega posts - COM PROTEÇÃO TOTAL
     function loadPosts() {
-      const posts = JSON.parse(localStorage.getItem('posts')) || [];
-      feed.innerHTML = '';
-      posts.forEach(post => renderPost(post));
+      try {
+        const posts = fixCorruptedPosts();
+        feed.innerHTML = '';
+        
+        if (posts.length === 0) {
+          feed.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Nenhum post ainda. Seja o primeiro a postar!</p>';
+        } else {
+          posts.forEach(post => renderPost(post));
+          console.log('Posts carregados com sucesso:', posts.length);
+        }
+      } catch (error) {
+        console.error('Erro crítico ao carregar posts:', error);
+        feed.innerHTML = '<p style="text-align: center; color: red; padding: 20px;">Erro ao carregar posts. Recarregue a página.</p>';
+      }
+    }
+
+    // Enter para postar
+    postText.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' && e.ctrlKey) {
+        addPost();
+      }
+    });
+
+    // FUNÇÃO DE LIMPEZA (para debug)
+    function clearAllPosts() {
+      if (confirm('TEM CERTEZA? Isso vai apagar TODOS os posts!')) {
+        localStorage.removeItem('sously_posts');
+        localStorage.removeItem('posts');
+        alert('Posts apagados! Recarregando...');
+        loadPosts();
+      }
     }
 
     // Inicializa
+    initializeData();
     loadPosts();
+
+    console.log('Sously carregado!');
+    console.log('Para limpar todos os posts, execute: clearAllPosts()');
   </script>
 </body>
 </html>
