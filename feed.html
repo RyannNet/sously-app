@@ -4,10 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feed</title>
+
+  <!-- Material Symbols -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300..900&family=Raleway:wght@400..900&display=swap" rel="stylesheet">
+
   <style>
     *{
       margin: 0;
@@ -18,7 +23,7 @@
       background: #FFFFFF;
       color: #1E1E1E;
       font-family: "Rubik", sans-serif;
-      padding-bottom: 65px;
+      padding-bottom: 65px; /* Espaço para o footer fixo */
     }
     header{
       width: 100%;
@@ -59,12 +64,18 @@
     }
 
     .material-symbols-rounded {
-      font-family: 'Material Symbols Rounded';
+      font-family: 'Material Symbols Rounded' !important;
       font-weight: normal;
       font-style: normal;
       line-height: 1;
       display: inline-block;
       vertical-align: middle;
+      -webkit-font-smoothing: antialiased;
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
     }
 
     aside{
@@ -108,6 +119,7 @@
       min-height: calc(100vh - 125px);
     }
     
+    /* Estilos para a área de postagem */
     .post-box{
       margin-bottom: 20px;
       display: flex;
@@ -127,55 +139,59 @@
       border-radius: 10px;
     }
 
-    .post-box input[type="file"]{
-      display: none;
-    }
+   .post-box input[type="file"]{
+  display: none; /* esconde totalmente o input */
+  pointer-events: none; /* garante que não interfira */
+}
 
-    .post-box .file-container{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border: 2px dashed #FFCB28;
-      border-radius: 15px;
-      padding: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-      color: #FFCB28;
-      font-weight: bold;
-      font-size: 14px;
-    }
+.post-box .file-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 2px dashed #FFCB28;
+  border-radius: 15px;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #FFCB28;
+  font-weight: bold;
+  font-size: 14px;
+}
 
-    .post-box .file-container:hover{
-      background: #FFF5E0;
-      border-color: #FFB700;
-      color: #FF9000;
-    }
+.post-box .file-container:hover{
+  background: #FFF5E0;
+  border-color: #FFB700;
+  color: #FF9000;
+}
 
-    .post-box .file-container span{
-      font-size: 24px;
-    }
+.post-box .file-container span{
+  font-size: 24px;
+}
 
-    .post-box button{
-      width: 100%;
-      background: #FFCB28;
-      color: #000;
-      border: none;
-      border-radius: 25px;
-      padding: 12px 0;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-top: 10px;
-    }
+.post-box button{
+  width: 100%; /* ocupa toda a largura do container */
+  background: #FFCB28;
+  color: #000;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
 
-    .post-box button:hover{
-      background: #000;
-      color: #FFCB28;
-      transform: translateY(-2px);
-    }
+.post-box button:hover{
+  background: #000;
+  color: #FFCB28;
+  transform: translateY(-2px);
+}
 
+.post-box button:active{
+  transform: translateY(0);
+}
     #feed{
       display: flex;
       flex-direction: column;
@@ -184,7 +200,7 @@
 
     .post{
       background: #fff;
-      border: 1px solid #E1E1E1;
+      border: 1px solid #E1E1E100;
       border-radius: 15px;
       padding: 15px;
       width: 100%;
@@ -223,54 +239,7 @@
       margin-top: 10px;
     }
 
-    .post-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-    }
-
-    .post-actions span {
-      cursor: pointer;
-      font-size: 22px;
-      color: #FFA900;
-      margin-right: 15px;
-      transition: 0.2s;
-    }
-
-    .post-actions span:hover {
-      color: #FF6E00;
-    }
-
-    .post-more {
-      cursor: pointer;
-      font-size: 22px;
-    }
-
-    .more-menu {
-      position: absolute;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 5px;
-      top: 35px;
-      right: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      z-index: 200;
-    }
-
-    .more-menu div {
-      cursor: pointer;
-      padding: 5px 10px;
-      transition: 0.2s;
-    }
-
-    .more-menu div:hover {
-      background: #f2f2f2;
-    }
-
+    /* Responsivo */
     @media (max-width: 768px){
       aside{
         display: none;
@@ -278,6 +247,7 @@
       .contents-js{
         margin-left: 0;
         padding: 10px;
+        min-height: calc(100vh - 125px);
       }
       footer{
         font-size: 1.8rem;
@@ -287,118 +257,8 @@
         gap: 2rem;
       }
       body {
-        padding-bottom: 60px;
+        padding-bottom: 60px; /* Ajuste para o footer menor em mobile */
       }
-    }
-
-    /* BOTÃO DE MODERAÇÃO */
-    .mod-floating-btn {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #FFCB28, #FF9000);
-      color: white;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-    }
-
-    .mod-panel {
-      position: fixed;
-      bottom: 150px;
-      right: 20px;
-      width: 300px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      z-index: 1000;
-      padding: 20px;
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .mod-panel h3 {
-      margin: 0 0 15px 0;
-      color: #333;
-      font-size: 18px;
-      text-align: center;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #FFCB28;
-    }
-
-    .mod-option {
-      display: flex;
-      align-items: center;
-      padding: 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.2s;
-      gap: 10px;
-    }
-
-    .mod-option:hover {
-      background: #FFF5E0;
-    }
-
-    .mod-option span {
-      color: #FF9000;
-    }
-
-    .mod-option p {
-      margin: 0;
-      font-weight: 500;
-      color: #333;
-    }
-
-    /* MODAL DE MODERAÇÃO */
-    .mod-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    .mod-modal-content {
-      background: white;
-      border-radius: 15px;
-      padding: 20px;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    .user-selection {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      border: 1px solid #E1E1E1;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-
-    .user-selection:hover {
-      background: #F8F9FA;
-    }
-
-    .user-selection img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
     }
   </style>
 </head>
@@ -419,16 +279,17 @@
   </aside>
 
   <div class="contents-js">
-    <div class="post-box">
-      <textarea id="postText" placeholder="O que você está pensando?"></textarea>
-      
-      <label class="file-container" for="postImage">
-        <span class="material-symbols-rounded">image</span> Adicionar Foto
-      </label>
-      <input type="file" id="postImage" accept="image/*">
-      
-      <button onclick="addPost()">Postar</button>
-    </div>
+    <!-- Conteúdo dinâmico -->
+   <div class="post-box">
+  <textarea id="postText" placeholder="O que você está pensando?"></textarea>
+  
+  <label class="file-container" for="postImage">
+    <span class="material-symbols-rounded">image</span> Adicionar Foto
+  </label>
+  <input type="file" id="postImage" accept="image/*">
+  
+  <button onclick="addPost()">Postar</button>
+</div>
     <div id="feed"></div>
   </div>
 
@@ -441,57 +302,9 @@
       <a href="#"><span class="material-symbols-rounded">settings</span></a>
     </div>
   </footer>
-  
-  <!-- BOTÃO DE MODERAÇÃO -->
-  <div class="mod-floating-btn" id="modButton">
-    <span class="material-symbols-rounded">admin_panel_settings</span>
-  </div>
-  
-  <!-- PAINEL DE MODERAÇÃO -->
-  <div class="mod-panel" id="modPanel">
-    <h3>Ferramentas de Moderação</h3>
-    <div class="mod-option" onclick="modAction('warn')">
-      <span class="material-symbols-rounded">warning</span>
-      <p>Warn (Advertir)</p>
-    </div>
-    <div class="mod-option" onclick="modAction('mute')">
-      <span class="material-symbols-rounded">volume_off</span>
-      <p>Mutar</p>
-    </div>
-    <div class="mod-option" onclick="modAction('ban')">
-      <span class="material-symbols-rounded">block</span>
-      <p>Banir</p>
-    </div>
-    <div class="mod-option" onclick="modAction('banIp')">
-      <span class="material-symbols-rounded">network_locked</span>
-      <p>Banir por IP</p>
-    </div>
-    <div class="mod-option" onclick="modAction('deleteContent')">
-      <span class="material-symbols-rounded">delete</span>
-      <p>Excluir conteúdo</p>
-    </div>
-    <div class="mod-option" onclick="modAction('blackout')">
-      <span class="material-symbols-rounded">visibility_off</span>
-      <p>Esconder usuário</p>
-    </div>
-    <div class="mod-option" onclick="modAction('limit')">
-      <span class="material-symbols-rounded">lock</span>
-      <p>Limitar atividades</p>
-    </div>
-  </div>
 
-  <!-- MODAL DE SELEÇÃO -->
-  <div class="mod-modal" id="modModal">
-    <div class="mod-modal-content">
-      <h3 id="modModalTitle">Selecionar Usuário</h3>
-      <div id="modModalContent">
-        <!-- Conteúdo dinâmico aqui -->
-      </div>
-    </div>
-  </div>
-
-<script>
-// CÓDIGO COMPLETO E FUNCIONAL
+  <script>
+// CÓDIGO ATUALIZADO PARA USAR O SERVIDOR DO RENDER
 const feed = document.getElementById("feed");
 const postText = document.getElementById("postText");
 const postImage = document.getElementById("postImage");
@@ -501,7 +314,10 @@ const modModal = document.getElementById("modModal");
 const modModalTitle = document.getElementById("modModalTitle");
 const modModalContent = document.getElementById("modModalContent");
 
-// Pega usuário logado
+// URL da API
+const API_URL = "https://sously-app.onrender.com/api"; // Exemplo de URL de API
+
+// Pega usuário logado do localStorage (manter isso no cliente)
 let currentUser = JSON.parse(localStorage.getItem("userData"));
 if(!currentUser){
   alert("Faça login primeiro!");
@@ -512,11 +328,11 @@ if(!currentUser){
 const isModerator = currentUser.email === "willianbotcontact@gmail.com";
 if (isModerator) {
   modButton.style.display = "flex";
-  
+
   modButton.addEventListener("click", function() {
     modPanel.style.display = modPanel.style.display === "flex" ? "none" : "flex";
   });
-  
+
   document.addEventListener('click', function(event) {
     if (!modPanel.contains(event.target) && !modButton.contains(event.target)) {
       modPanel.style.display = 'none';
@@ -524,220 +340,81 @@ if (isModerator) {
   });
 }
 
-// Carrega posts salvos - AGORA USANDO POSTS PÚBLICOS
-let posts = JSON.parse(localStorage.getItem("public_posts")) || [];
-posts.forEach(p => renderPost(p));
-
-// Função de postar - AGORA SALVA EM POSTS PÚBLICOS
-function addPost(){
-  const text = postText.value.trim();
-  const file = postImage.files[0];
-  
-  if(!text && !file) return;
-  
-  if(file) {
-    const reader = new FileReader();
-    reader.onload = function() {
-      const newPost = {
-        user: currentUser,
-        text: text,
-        image: reader.result,
-        timestamp: Date.now(),
-        id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
-      };
-      
-      // SALVA NO localStorage PÚBLICO
-      let publicPosts = JSON.parse(localStorage.getItem("public_posts")) || [];
-      publicPosts.unshift(newPost);
-      localStorage.setItem("public_posts", JSON.stringify(publicPosts));
-      
-      renderPost(newPost, true);
-      postText.value = "";
-      postImage.value = "";
-    };
-    reader.readAsDataURL(file);
-  } else {
-    const newPost = {
-      user: currentUser,
-      text: text,
-      image: null,
-      timestamp: Date.now(),
-      id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
-    };
-    
-    // SALVA NO localStorage PÚBLICO
-    let publicPosts = JSON.parse(localStorage.getItem("public_posts")) || [];
-    publicPosts.unshift(newPost);
-    localStorage.setItem("public_posts", JSON.stringify(publicPosts));
-    
-    renderPost(newPost, true);
-    postText.value = "";
-    postImage.value = "";
+// Carrega posts do servidor
+async function loadPosts() {
+  try {
+    const response = await fetch(`${API_URL}/posts`);
+    if (!response.ok) {
+      throw new Error("Erro ao carregar posts");
+    }
+    const posts = await response.json();
+    feed.innerHTML = ''; // Limpa o feed antes de renderizar
+    posts.forEach(p => renderPost(p));
+  } catch (error) {
+    console.error("Erro:", error);
+    alert("Não foi possível carregar os posts. Tente novamente mais tarde.");
   }
 }
 
-// Função que cria o post no DOM
-function renderPost(postData, prepend=false){
-  const post = document.createElement("div");
-  post.classList.add("post");
-  
-  const postHeader = document.createElement("div");
-  postHeader.classList.add("post-header");
-  const avatar = document.createElement("img");
-  avatar.src = postData.user.avatar;
-  avatar.classList.add("post-avatar");
-  const userInfo = document.createElement("div");
-  userInfo.classList.add("user-info");
-  userInfo.innerHTML = `<strong>${postData.user.name}</strong> <span>${postData.user.username}</span>`;
-  postHeader.appendChild(avatar);
-  postHeader.appendChild(userInfo);
-  
-  post.appendChild(postHeader);
-  
-  if(postData.text) {
-    const p = document.createElement("p");
-    p.textContent = postData.text;
-    post.appendChild(p);
-  }
-  
-  if(postData.image){
-    const img = document.createElement("img");
-    img.src = postData.image;
-    img.classList.add("post-img");
-    post.appendChild(img);
-  }
-  
-  const postFooter = document.createElement("div");
-  postFooter.classList.add("post-footer");
-  postFooter.innerHTML = `
-    <div class="post-actions">
-      <span class="material-symbols-rounded" title="Curtir">favorite</span>
-      <span class="material-symbols-rounded" title="Comentários">chat_bubble</span>
-      <span class="material-symbols-rounded" title="Comentário de destaque">stars</span>
-    </div>
-    <div class="post-more">more_vert</div>
-  `;
-  
-  const moreBtn = postFooter.querySelector(".post-more");
-  moreBtn.onclick = () => {
-    const existingMenu = postFooter.querySelector(".more-menu");
-    if(existingMenu) {
-      existingMenu.remove();
-      return;
-    }
-    
-    const menu = document.createElement("div");
-    menu.classList.add("more-menu");
-    menu.innerHTML = `
-      <div>Denunciar</div>
-      <div>Esconder</div>
-      <div>Bloquear dono do post</div>
-      <div>Ir para conta do dono</div>
-      <div>Enviar DM</div>
-    `;
-    postFooter.appendChild(menu);
+// Função de postar - AGORA ENVIA PARA O SERVIDOR
+async function addPost(){
+  const text = postText.value.trim();
+  const file = postImage.files[0];
+
+  if(!text && !file) return;
+
+  // Lógica para obter a imagem em base64 (adaptada)
+  const getImageData = (file) => {
+    return new Promise((resolve) => {
+      if (!file) {
+        resolve(null);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    });
   };
-  
-  post.appendChild(postFooter);
-  
-  if(prepend) feed.prepend(post);
-  else feed.appendChild(post);
-}
 
-// SISTEMA DE MODERAÇÃO
-let currentAction = '';
+  const imageData = await getImageData(file);
 
-<script>
-// CÓDIGO COMPLETO E FUNCIONAL
-const feed = document.getElementById("feed");
-const postText = document.getElementById("postText");
-const postImage = document.getElementById("postImage");
-const modButton = document.getElementById("modButton");
-const modPanel = document.getElementById("modPanel");
-const modModal = document.getElementById("modModal");
-const modModalTitle = document.getElementById("modModalTitle");
-const modModalContent = document.getElementById("modModalContent");
+  const newPost = {
+    user: currentUser,
+    text: text,
+    image: imageData, // O servidor deve lidar com base64 ou você deve mudar para FormData
+    timestamp: Date.now(),
+    id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9) // Id do post pode ser gerado no servidor
+  };
 
-// Pega usuário logado
-let currentUser = JSON.parse(localStorage.getItem("userData"));
-if(!currentUser){
-  alert("Faça login primeiro!");
-  window.location.href = "login.html";
-}
-
-// Verifica se é moderador
-const isModerator = currentUser.email === "willianbotcontact@gmail.com";
-if (isModerator) {
-  modButton.style.display = "flex";
-  
-  modButton.addEventListener("click", function() {
-    modPanel.style.display = modPanel.style.display === "flex" ? "none" : "flex";
-  });
-  
-  document.addEventListener('click', function(event) {
-    if (!modPanel.contains(event.target) && !modButton.contains(event.target)) {
-      modPanel.style.display = 'none';
+  try {
+    const response = await fetch(`${API_URL}/posts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newPost)
+    });
+    
+    if (!response.ok) {
+      throw new Error("Erro ao postar. Tente novamente.");
     }
-  });
-}
 
-// Carrega posts salvos - AGORA USANDO POSTS PÚBLICOS
-let posts = JSON.parse(localStorage.getItem("public_posts")) || [];
-posts.forEach(p => renderPost(p));
-
-// Função de postar - AGORA SALVA EM POSTS PÚBLICOS
-function addPost(){
-  const text = postText.value.trim();
-  const file = postImage.files[0];
-  
-  if(!text && !file) return;
-  
-  if(file) {
-    const reader = new FileReader();
-    reader.onload = function() {
-      const newPost = {
-        user: currentUser,
-        text: text,
-        image: reader.result,
-        timestamp: Date.now(),
-        id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
-      };
-      
-      // SALVA NO localStorage PÚBLICO
-      let publicPosts = JSON.parse(localStorage.getItem("public_posts")) || [];
-      publicPosts.unshift(newPost);
-      localStorage.setItem("public_posts", JSON.stringify(publicPosts));
-      
-      renderPost(newPost, true);
-      postText.value = "";
-      postImage.value = "";
-    };
-    reader.readAsDataURL(file);
-  } else {
-    const newPost = {
-      user: currentUser,
-      text: text,
-      image: null,
-      timestamp: Date.now(),
-      id: 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
-    };
-    
-    // SALVA NO localStorage PÚBLICO
-    let publicPosts = JSON.parse(localStorage.getItem("public_posts")) || [];
-    publicPosts.unshift(newPost);
-    localStorage.setItem("public_posts", JSON.stringify(publicPosts));
-    
-    renderPost(newPost, true);
+    const createdPost = await response.json(); // Servidor retorna o post criado
+    renderPost(createdPost, true);
     postText.value = "";
     postImage.value = "";
+  } catch (error) {
+    console.error("Erro:", error);
+    alert("Não foi possível criar o post. Verifique a conexão.");
   }
 }
 
-// Função que cria o post no DOM
+
+// Função que cria o post no DOM (mantém-se a mesma)
 function renderPost(postData, prepend=false){
   const post = document.createElement("div");
   post.classList.add("post");
-  
+
   const postHeader = document.createElement("div");
   postHeader.classList.add("post-header");
   const avatar = document.createElement("img");
@@ -748,28 +425,27 @@ function renderPost(postData, prepend=false){
   userInfo.innerHTML = `<strong>${postData.user.name}</strong> <span>${postData.user.username}</span>`;
   postHeader.appendChild(avatar);
   postHeader.appendChild(userInfo);
-  
+
   post.appendChild(postHeader);
-  
+
   if(postData.text) {
     const p = document.createElement("p");
     p.textContent = postData.text;
     post.appendChild(p);
   }
-  
+
   if(postData.image){
     const img = document.createElement("img");
     img.src = postData.image;
     img.classList.add("post-img");
     post.appendChild(img);
   }
-  
+
   const postFooter = document.createElement("div");
   postFooter.classList.add("post-footer");
-  
-  // Verifica se é dono do post para mostrar menu diferente
+
   const isOwner = postData.user.email === currentUser.email;
-  
+
   postFooter.innerHTML = `
     <div class="post-actions">
       <span class="material-symbols-rounded" title="Curtir">favorite</span>
@@ -778,7 +454,7 @@ function renderPost(postData, prepend=false){
     </div>
     <div class="post-more">more_vert</div>
   `;
-  
+
   const moreBtn = postFooter.querySelector(".post-more");
   moreBtn.onclick = () => {
     const existingMenu = document.querySelector(".more-menu");
@@ -786,18 +462,16 @@ function renderPost(postData, prepend=false){
       existingMenu.remove();
       return;
     }
-    
+
     const menu = document.createElement("div");
     menu.classList.add("more-menu");
-    
+
     if (isOwner) {
-      // Menu para dono do post
       menu.innerHTML = `
         <div onclick="deletePost('${postData.id}')">Excluir POST</div>
         <div>Editar post</div>
       `;
     } else {
-      // Menu para outros usuários
       menu.innerHTML = `
         <div>Denunciar</div>
         <div>Esconder</div>
@@ -806,16 +480,14 @@ function renderPost(postData, prepend=false){
         <div>Enviar DM</div>
       `;
     }
-    
+
     document.body.appendChild(menu);
-    
-    // Posiciona o menu próximo ao botão
+
     const rect = moreBtn.getBoundingClientRect();
     menu.style.position = 'absolute';
     menu.style.top = (rect.bottom + window.scrollY) + 'px';
     menu.style.right = (window.innerWidth - rect.right) + 'px';
-    
-    // Fecha o menu ao clicar fora
+
     setTimeout(() => {
       document.addEventListener('click', function closeMenu(e) {
         if (!menu.contains(e.target) && e.target !== moreBtn) {
@@ -825,31 +497,38 @@ function renderPost(postData, prepend=false){
       });
     }, 100);
   };
-  
+
   post.appendChild(postFooter);
-  
+
   if(prepend) feed.prepend(post);
   else feed.appendChild(post);
 }
 
-// FUNÇÃO PARA EXCLUIR POST (para donos)
-function deletePost(postId) {
+// FUNÇÃO PARA EXCLUIR POST (ENVIA REQUISIÇÃO PARA O SERVIDOR)
+async function deletePost(postId) {
   if (confirm('Tem certeza que deseja excluir este post?')) {
-    let publicPosts = JSON.parse(localStorage.getItem("public_posts")) || [];
-    publicPosts = publicPosts.filter(post => post.id !== postId);
-    localStorage.setItem("public_posts", JSON.stringify(publicPosts));
-    
-    // Atualiza o feed
-    feed.innerHTML = '';
-    publicPosts.forEach(p => renderPost(p));
+    try {
+      const response = await fetch(`${API_URL}/posts/${postId}`, {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao excluir post.");
+      }
+
+      await loadPosts(); // Recarrega os posts após a exclusão
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Não foi possível excluir o post.");
+    }
   }
 }
 
-// FUNÇÃO PARA VER PERFIL
+// FUNÇÃO PARA VER PERFIL (usa localStorage para transferir dados, o que é OK para este caso)
 function viewProfile(userEmail) {
   const contas = JSON.parse(localStorage.getItem("contas")) || [];
   const user = contas.find(u => u.email === userEmail);
-  
+
   if (user) {
     localStorage.setItem("viewingProfile", JSON.stringify(user));
     window.location.href = "profile.html";
@@ -860,14 +539,15 @@ function viewProfile(userEmail) {
 let currentAction = '';
 
 function modAction(action) {
+  // Lógica de moderação permanece a mesma, já que ela é baseada no frontend
   currentAction = action;
   modPanel.style.display = "none";
-  
+
   const contas = JSON.parse(localStorage.getItem("contas")) || [];
-  
+
   modModalTitle.textContent = `Selecionar Usuário para ${action}`;
   modModalContent.innerHTML = '';
-  
+
   contas.forEach(user => {
     const userEl = document.createElement('div');
     userEl.className = 'user-selection';
@@ -881,7 +561,7 @@ function modAction(action) {
     userEl.onclick = () => confirmModAction(user);
     modModalContent.appendChild(userEl);
   });
-  
+
   modModal.style.display = 'flex';
 }
 
@@ -913,7 +593,7 @@ modModal.addEventListener('click', (e) => {
   }
 });
 
-// Sistema de likes público
+// Sistema de likes público (mantido no frontend para simplicidade)
 function setupLikesSystem() {
   if (!localStorage.getItem("post_likes")) {
     localStorage.setItem("post_likes", JSON.stringify({}));
@@ -923,14 +603,14 @@ function setupLikesSystem() {
 function likePost(postId) {
   const likes = JSON.parse(localStorage.getItem("post_likes")) || {};
   if (!likes[postId]) likes[postId] = [];
-  
+
   const userIndex = likes[postId].indexOf(currentUser.email);
   if (userIndex === -1) {
     likes[postId].push(currentUser.email);
   } else {
     likes[postId].splice(userIndex, 1);
   }
-  
+
   localStorage.setItem("post_likes", JSON.stringify(likes));
 }
 
@@ -944,51 +624,60 @@ function getLikeCount(postId) {
   return likes[postId] ? likes[postId].length : 0;
 }
 
-// Inicializa o sistema de likes
+// Inicializa o sistema de likes e carrega os posts ao carregar a página
 setupLikesSystem();
-                                         </script>
+loadPosts();
+
+  </script>
+  
+  <style>.post-footer {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-top: 10px;
+}
+
+.post-actions span {
+cursor: pointer;
+font-size: 22px;
+color: #FFA900;
+margin-right: 15px;
+transition: 0.2s;
+}
+
+.post-actions span:hover {
+color: #FF6E00;
+}
+
+.post-more {
+cursor: pointer;
+font-size: 22px;
+}
+
+.more-menu {
+position: absolute;
+background: #fff;
+border: 1px solid #ccc;
+border-radius: 10px;
+padding: 5px;
+top: 35px;
+right: 10px;
+display: flex;
+flex-direction: column;
+gap: 5px;
+z-index: 200;
+}
+
+.more-menu div {
+cursor: pointer;
+padding: 5px 10px;
+transition: 0.2s;
+}
+
+.more-menu div:hover {
+background: #f2f2f2;
+}</style>
+
+
 </body>
 </html>
-
-<!-- SOBREPOSIÇÃO DE DESCONTINUAÇÃO -->
-<div id="overlay">
-  <div class="overlay-content">
-    <h1>Esse site por enquanto foi descontinuado <br> <span>POR ENQUANTO</span></h1>
-    <p>Quem sabe algum dia possamos voltar 🚧</p>
-  </div>
-</div>
-
-<style>
-  #overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000000E0;
-    backdrop-filter: blur(7px);
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    opacity: 0;
-    z-index: -99999999; /* garante que cobre tudo */
-  }
-
-  .overlay-content h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    
-  }
-
-  .overlay-content h1 span {
-    color: #FFCB28;
-  }
-
-  .overlay-content p {
-    font-size: 1.2rem;
-    color: #ccc;
-  }
-</style>
